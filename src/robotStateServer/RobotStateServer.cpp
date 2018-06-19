@@ -3,35 +3,51 @@
 //
 
 #include "RobotStateServer.h"
-#include "../robot_state.h"
+#include "../Parser/vm/robot_state.h"
 
 RobotStateServer::RobotStateServer(ServerManager *pServerManager) : m_isStop(false) {
     m_pServerManager = pServerManager;
 
     shared_memory_object::remove("RobotState");
     m_shm = shared_memory_object(create_only, "RobotState", read_write);
+
     m_shm.truncate(SHARE_MEMORY_SIZE);
     m_region = mapped_region(m_shm, read_write);
 
     memset(m_region.get_address(), 0, m_region.get_size());
 
-    m_shareData = new char[SHARE_MEMORY_SIZE];
-
 }
 
 void robotState_thread(RobotStateServer * pServer) {
     RobotStateServer *pRobotStateServer = pServer;
+    RobotState *pRobotState = pRobotStateServer->m_pServerManager->m_pParser->m_vm.m_robotState;
+    char * shareData = new char[SHARE_MEMORY_SIZE];
+    char * sendData = new char[SHARE_MEMORY_SIZE];
     while (!pRobotStateServer->isStop()) {
 
         //读取共享内存数据
-        pRobotStateServer->getShareData();
+        pRobotStateServer->getShareData(shareData);
+
+        //共享内存数据转为robot state对象
+        pRobotState->unpackFromMem((uint8_t*)shareData, SHARE_MEMORY_SIZE);
+
+        //todo 更新当前vm中dis dos
+
+        //todo 添加当前脚本id
+
+        //robot state转为网络发送包
+        int len = pRobotState->pack((uint8_t*)sendData);
+
+        //todo 添加返回值
 
         //发送共享内存数据
-        pRobotStateServer->m_pServerManager->m_pTcpServer->send(pRobotStateServer->m_shareData);
+        //pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len);
 
-        usleep(100);
-        //sleep(2);
+        //usleep(100);
+        sleep(2);
     }
+    delete[] shareData;
+    shareData = nullptr;
 }
 
 void RobotStateServer::run() {
@@ -47,16 +63,17 @@ bool RobotStateServer::isStop() {
     return m_isStop;
 }
 
-int RobotStateServer::getShareData() {
-
-    memcpy(m_shareData, m_region.get_address(), m_region.get_size());
+int RobotStateServer::getShareData(char* buf) {
+    memcpy(buf, m_region.get_address(), m_region.get_size());
     return 1;
 }
 
 RobotStateServer::~RobotStateServer() {
-    delete[] m_shareData;
-    m_shareData = nullptr;
+
 }
+
+
+
 
 
 

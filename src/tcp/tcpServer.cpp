@@ -8,7 +8,7 @@
 
 TcpServer::TcpServer(ServerManager *pServerManager) : scl(keywords::channel = "tcpServer_class"),
                                                       m_buf(TCP_RECV_BUF_SIZE, 0),
-                                                      m_acceptor(m_io, endpoint_type(ip::tcp::v4(), 6688))
+                                                      m_acceptor(m_io, endpoint_type(ip::tcp::v4(), 30001))
 //m_timer(m_io, boost::posix_time::millisec(50))
 {
     this->m_pServerManager = pServerManager;
@@ -59,11 +59,21 @@ void TcpServer::read_handler(const boost::system::error_code&ec, sock_ptr sock)
         return;
     }
 
-    sock->async_read_some(buffer(m_buf), boost::bind(&TcpServer::read_handler, this, boost::asio::placeholders::error, sock));
     if (!m_buf.empty()) {
         BOOST_LOG_SEV(scl, debug) << __FUNCTION__ << ":" << __LINE__ <<"receive from sock:"<< &m_buf[0];
-        m_buf.assign(TCP_RECV_BUF_SIZE, 0);
+        m_tcpRecvBuffMutex.lock();
+        for (auto item : m_buf) {
+            if (item != 0) {
+                m_unpackBuf.push_back(item);
+            }
+        }
+        unpack_handler();
+        m_tcpRecvBuffMutex.unlock();
     }
+
+    m_buf.assign(TCP_RECV_BUF_SIZE, 0);
+    sock->async_read_some(buffer(m_buf), boost::bind(&TcpServer::read_handler, this, boost::asio::placeholders::error, sock));
+
 
 }
 
@@ -74,18 +84,38 @@ void TcpServer::read_handler(const boost::system::error_code&ec, sock_ptr sock)
 //}
 
 //void TcpServer::send(buffer_type& buf)
-void TcpServer::send(char* buf) {
+void TcpServer::send(const char* buf, int len) {
 
-    if (m_sock.use_count()) {
+    if (len>0 && m_sock.use_count()) {
+        memset(m_sendBuf, 0, 4096);
+        memcpy(m_sendBuf, buf, len);
+        m_sendBuf[len] = '\n';
 
-        memcpy(m_sendBuf, buf, 4096);
-
+        boost::system::error_code ec;
+        m_sock->write_some(buffer(m_sendBuf, len+1), ec);
         //使用异步发送，存在发送不及时，缓存增长，暂时采用同步发送
         //m_sock->async_write_some(buffer(m_sendBuf), boost::bind(&this_type::write_handler, this, boost::asio::placeholders::error, m_sock));
 
-        boost::system::error_code ec;
-        m_sock->write_some(buffer(m_sendBuf), ec);
     }
+}
+
+void TcpServer::unpack_handler() {
+    int index = 0;
+    int delIndex = 0;
+    string strScript = "";
+    for (auto item : m_unpackBuf) {
+        if (item == '\n') {
+            index++;
+            delIndex = index;
+            m_pServerManager->m_pParser->setScript(strScript);
+            strScript = "";
+        } else {
+            strScript += item;
+            index++;
+        }
+
+    }
+    m_unpackBuf.erase(m_unpackBuf.begin(), m_unpackBuf.begin()+delIndex);
 }
 
 //void TcpServer::postpone_timer(sock_ptr sock) {

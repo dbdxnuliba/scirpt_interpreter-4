@@ -496,8 +496,7 @@ public:
 
     void unpack(uint8_t * buf, unsigned int buf_length);
     void unpackRobotMessage(uint8_t * buf, unsigned int offset, uint32_t len);
-    void unpackRobotMessageVersion(uint8_t * buf, unsigned int offset,
-                                   uint32_t len);
+    void unpackRobotMessageVersion(uint8_t * buf, unsigned int offset, uint32_t len);
     void unpackRobotState(uint8_t * buf, unsigned int offset, uint32_t len);
     void unpackRobotStateMasterboard(uint8_t * buf, unsigned int offset);
     void unpackRobotMode(uint8_t * buf, unsigned int offset);
@@ -512,6 +511,9 @@ public:
 	unsigned int packRobotMode(uint8_t * buf, unsigned int offset);
 	unsigned int packJointData(uint8_t * buf, unsigned int offset);
 	unsigned int packCartesianInfo(uint8_t * buf, unsigned int offset);
+
+	void unpackFromMem(uint8_t * buf, unsigned int buf_length);
+	unsigned int packToMem(uint8_t * buf);
 
 };
 

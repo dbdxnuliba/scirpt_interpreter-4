@@ -11,15 +11,9 @@
 #include <boost/asio.hpp>
 #include <boost/asio/placeholders.hpp>
 
-#include <boost/log/trivial.hpp>
-#include <boost/log/sources/severity_channel_logger.hpp>
-
 #include "../ServerManager/ServerManager.h"
 
-namespace logging = boost::log;
-using namespace logging::trivial;
-namespace src = boost::log::sources;
-namespace keywords = boost::log::keywords;
+
 using namespace boost::asio;
 
 class ServerManager;
@@ -41,11 +35,14 @@ public:
     void accept();
 
     //void send(buffer_type& buf);
-    void send(char* buf);
+    void send(const char* buf, int len);
 private:
 
     void accept_handler(const boost::system::error_code& ec, sock_ptr sock);
     void read_handler(const boost::system::error_code&ec, sock_ptr sock);
+
+    //拆包处理
+    void unpack_handler();
     //void write_handler(const boost::system::error_code&ec, sock_ptr sock);
     //void postpone_timer(sock_ptr sock);
     //void writesock(sock_ptr sock);
@@ -53,11 +50,16 @@ private:
 private:
     src::severity_channel_logger<severity_level, std::string> scl;
 
+    mutex m_tcpRecvBuffMutex;
+
 public:
     io_service m_io;
     acceptor_type m_acceptor;
     //deadline_timer m_timer;
     buffer_type m_buf;          //接收缓存
+    deque<char> m_unpackBuf;    //接收缓存，用于拆包
+
+
     char m_sendBuf[4096];       //发送缓存
     sock_ptr m_sock;
 

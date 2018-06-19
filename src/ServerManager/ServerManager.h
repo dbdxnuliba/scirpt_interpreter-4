@@ -7,9 +7,11 @@
 
 #include "../tcp/tcpServer.h"
 #include "../robotStateServer/RobotStateServer.h"
+#include "../Parser/Parser.h"
 
 class TcpServer;
 class RobotStateServer;
+class Parser;
 
 class ServerManager {
 
@@ -34,6 +36,7 @@ public:
 
     TcpServer *m_pTcpServer;
     RobotStateServer *m_pRobotStateServer;
+    Parser *m_pParser;
 
 
     src::severity_channel_logger<severity_level, std::string> scl;

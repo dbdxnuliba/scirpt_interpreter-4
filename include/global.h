@@ -10,6 +10,8 @@
 #include <boost/log/trivial.hpp>
 #include <boost/log/sources/severity_channel_logger.hpp>
 #include "endian.h"
+#include "../src/util/IntegerUtil.hpp"
+
 
 using namespace std;
 
@@ -17,6 +19,7 @@ namespace logging = boost::log;
 using namespace logging::trivial;
 namespace src = boost::log::sources;
 namespace keywords = boost::log::keywords;
+
 
 typedef vector<char> buffer_type;
 

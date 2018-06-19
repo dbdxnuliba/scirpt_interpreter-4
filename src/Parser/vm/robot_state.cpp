@@ -18,7 +18,7 @@
  */
 
 #include "robot_state.h"
-#include "../include/endian.h"
+#include "../../../include/endian.h"
 
 RobotState::RobotState(std::condition_variable& msg_cond)
 {
@@ -1748,4 +1748,12 @@ void RobotState::setDisconnected()
     robot_mode_.isRobotConnected = false;
     robot_mode_.isRealRobotEnabled = false;
     robot_mode_.isPowerOnRobot = false;
+}
+
+void RobotState::unpackFromMem(uint8_t *buf, unsigned int buf_length) {
+
+}
+
+unsigned int RobotState::packToMem(uint8_t *buf) {
+    return 0;
 }

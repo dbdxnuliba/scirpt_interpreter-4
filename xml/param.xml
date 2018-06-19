@@ -1,0 +1,285 @@
+<MechanicalArm>
+    <params>
+        <!-- 上电 -->
+        <powerOn>
+            <request>power on</request>
+            <response>Powering on</response>
+        </powerOn>
+        <!-- 断电 -->
+        <powerOff>
+            <request>power off</request>
+            <response>Powering off</response>
+        </powerOff>
+        <!-- 运行脚本 -->
+        <play>
+            <request>play</request>
+            <response>Starting program</response>
+        </play>
+        <!-- 停止 -->
+        <stop>
+            <request>stop</request>
+            <response>Stopped</response>
+        </stop>
+        <!-- 暂停 -->
+        <pause>
+            <request>pause</request>
+            <response>Pausing program</response>
+        </pause>
+    </params>
+    <command>
+        <!--(p为轴坐标AXSI1,AXSI2...)(a为)(v是速度)(t是时间)(r是)-->
+        <node namespace="movej" type = "def" modal="movej(p,a,v,t,r)">
+            <p>
+                <AXIS1 mold="double">
+                    <min>0</min>
+                    <max>10</max>
+                    <default>10</default>
+                </AXIS1>
+                <AXIS2 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS2>
+                <AXIS3 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS3>
+                <AXIS4 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS4>
+                <AXIS5 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS5>
+                <AXIS6 mold="double">
+                    <min>0</min>
+                    <max>10</max>
+                    <default>10</default>
+                </AXIS6>
+            </p>
+            <a mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </a>
+            <v mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </v>
+            <t mold="int">
+                <min>0</min>
+                <max>1000</max>
+                <default>10</default>
+            </t>
+            <r mold="double">
+                <min>0</min>
+                <max>10</max>
+                <default>10</default>
+            </r>
+        </node>
+        <!--(pose为直线坐标x,y...Rx)(a为)(v是速度)(t是时间)(r是)-->
+        <node namespace="movel" type = "def" modal="movel(pose,a,v,t,r)">
+            <pose>
+                <X mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </X>
+                <Y mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </Y>
+                <Z mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </Z>
+                <RX mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RX>
+                <RY mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RY>
+                <RZ mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RZ>
+                <RN mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RN>
+            </pose>
+            <a mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </a>
+            <v mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </v>
+            <t mold="int">
+                <min>0</min>
+                <max>1000</max>
+                <default>10</default>
+            </t>
+            <r mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </r>
+        </node>
+        <!--(qd是速度,y...Rx)(a为)(t是时间)-->
+        <node namespace="speedj" type = "def" modal="speedj(qd,a,t_min)">
+            <qd>
+                <AXIS1 mold="double">
+                    <min>0</min>
+                    <max>10</max>
+                    <default>10</default>
+                </AXIS1>
+                <AXIS2 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS2>
+                <AXIS3 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS3>
+                <AXIS4 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS4>
+                <AXIS5 mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </AXIS5>
+                <AXIS6 mold="double">
+                    <min>0</min>
+                    <max>10</max>
+                    <default>10</default>
+                </AXIS6>
+            </qd>
+            <a mold="double">
+                <min>0</min>
+                <max>10</max>
+                <default>9990</default>
+            </a>
+            <t_min mold="int">
+                <min>0</min>
+                <max>100</max>
+                <default>100</default>
+            </t_min>
+        </node>
+        <!--(xd是速度,y...Rx)(a为)(t是时间)-->
+        <node namespace="speedl" type = "def" modal="speedl(xd,a,t_min)">
+            <xd>
+                <X mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </X>
+                <Y mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </Y>
+                <Z mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </Z>
+                <RX mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RX>
+                <RY mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RY>
+                <RZ mold="double">
+                    <min>0</min>
+                    <max>100</max>
+                    <default>10</default>
+                </RZ>
+            </xd>
+            <a mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </a>
+            <t_min mold="int">
+                <min>0</min>
+                <max>100</max>
+                <default>100</default>
+            </t_min>
+        </node>
+        <!--(a为加速度)-->
+        <node namespace="stopj" type = "def" modal="stopj(a)">
+            <a mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>10</default>
+            </a>
+        </node>
+        <node namespace="stopl" type = "def" modal="stopl(a)">
+            <a mold="double">
+                <min>0</min>
+                <max>100</max>
+                <default>2</default>
+            </a>
+        </node>
+        <node namespace="teach_mode" type = "def" modal="teach_mode(x,y,z,Rx,Ry,Rz)">
+            <x mold="int">
+                <min>0</min>
+                <max>1</max>
+                <default>0</default>
+            </x>
+            <y mold="int">
+                <min>0</min>
+                <max>1</max>
+                <default>0</default>
+            </y>
+            <z mold="int">
+                <min>0</min>
+                <max>1</max>
+                <default>0</default>
+            </z>
+            <Rx mold="int">
+                <min>0</min>
+                <max>1</max>
+                <default>0</default>
+            </Rx>
+            <Ry mold="int">
+                <min>0</min>
+                <max>1</max>
+                <default>0</default>
+            </Ry>
+            <Rz mold="int">
+                <min>0</min>
+                <max>1</max>
+                <default>0</default>
+            </Rz>
+        </node>
+        <node namespace="end_teach_mode" type = "def" modal="end_teach_mode()">
+        </node>
+    </command>
+</MechanicalArm>

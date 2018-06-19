@@ -6,11 +6,12 @@
 #define PARSERSERVER_ROBOTSTATESERVER_H
 
 #include "../ServerManager/ServerManager.h"
-#include "../../include/global.h"
 #include <boost/interprocess/shared_memory_object.hpp>
+#include "../../include/global.h"
 #include <boost/interprocess/mapped_region.hpp>
 
 using namespace boost::interprocess;
+
 
 class ServerManager;
 
@@ -24,14 +25,9 @@ public:
     void stop();
     bool isStop();
 
-    int getShareData();
-
+    int getShareData(char* buf);
 public:
     ServerManager *m_pServerManager;
-
-
-    char * m_shareData;  //从共享内存中读取数据
-
 
 private:
 
