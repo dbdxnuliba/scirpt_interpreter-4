@@ -20,6 +20,7 @@ public:
 
     void parse();
     void setScript(string str);
+    void saveScript(string str);
 
 private:
     Lexer m_lexer;

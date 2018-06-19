@@ -54,7 +54,7 @@ void Vm::reset() {
     }
 
     m_nodeList.clear();
-    //todo 清空全局变量
+    m_globalParams.global_variable.clear();
 }
 
 void Vm::sendToMq(string strData) {

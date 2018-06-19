@@ -633,6 +633,7 @@ Node *Parser::stmt_MoveCamera() {
 }
 
 void Parser::setScript(string str) {
+    saveScript(str);
     if (str[0] != '#') {
         if (str == "power on") {
             m_vm.setPowerState(true);
@@ -663,6 +664,15 @@ void Parser::setScript(string str) {
         return;
     }
 
+
+}
+
+void Parser::saveScript(string str) {
+
+    if (str.length()>0 && str.substr(0,4) == "#def") {
+        ofstream t("./config/parser.script");
+        t << str;
+    }
 
 }
 
