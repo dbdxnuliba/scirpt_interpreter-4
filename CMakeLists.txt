@@ -12,7 +12,7 @@ add_executable(ParserServer main.cpp
         src/Parser/Parser.cpp src/Parser/Parser.h src/Parser/vm/Vm.cpp
         src/Parser/vm/Vm.h src/robotStateServer/RobotStateServer.cpp
         src/robotStateServer/RobotStateServer.h
-        src/Parser/vm/robot_state.h src/Parser/vm/robot_state.cpp include/endian.h src/Parser/xmlReader/XmlReader.cpp src/Parser/xmlReader/XmlReader.h src/util/StringUtil.hpp src/util/IntegerUtil.hpp)
+        src/Parser/vm/robot_state.h src/Parser/vm/robot_state.cpp include/endian.h src/Parser/xmlReader/XmlReader.cpp src/Parser/xmlReader/XmlReader.h src/util/StringUtil.hpp src/util/IntegerUtil.hpp src/util/memUtil.hpp)
 
 set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost 1.67.0 REQUIRED COMPONENTS log log_setup thread system filesystem)

@@ -21,6 +21,7 @@ RobotStateServer::RobotStateServer(ServerManager *pServerManager) : m_isStop(fal
 void robotState_thread(RobotStateServer * pServer) {
     RobotStateServer *pRobotStateServer = pServer;
     RobotState *pRobotState = pRobotStateServer->m_pServerManager->m_pParser->m_vm.m_robotState;
+    Parser * pParser = pRobotStateServer->m_pServerManager->m_pParser;
     char * shareData = new char[SHARE_MEMORY_SIZE];
     char * sendData = new char[SHARE_MEMORY_SIZE];
     while (!pRobotStateServer->isStop()) {
@@ -32,13 +33,17 @@ void robotState_thread(RobotStateServer * pServer) {
         pRobotState->unpackFromMem((uint8_t*)shareData, SHARE_MEMORY_SIZE);
 
         //todo 更新当前vm中dis dos
+        IntegerUtil::Integer2Binary(pRobotState->mb_data_.digitalInputBits, pParser->m_vm.m_globalParams.dis, 16);
+        IntegerUtil::Integer2Binary(pRobotState->mb_data_.digitalOutputBits, pParser->m_vm.m_globalParams.dos, 16);
 
-        //todo 添加当前脚本id
+        // 添加当前脚本id
+        pRobotState->labelMessage_.id = pParser->m_vm.m_curScriptId;
 
         //robot state转为网络发送包
         int len = pRobotState->pack((uint8_t*)sendData);
 
-        //todo 添加返回值
+        // 添加返回值
+        memcpy(sendData+len, pParser->m_vm.m_curResult.c_str(), pParser->m_vm.m_curResult.length());
 
         //发送共享内存数据
         //pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len);

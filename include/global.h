@@ -11,6 +11,7 @@
 #include <boost/log/sources/severity_channel_logger.hpp>
 #include "endian.h"
 #include "../src/util/IntegerUtil.hpp"
+#include "../src/util/memUtil.hpp"
 
 
 using namespace std;
