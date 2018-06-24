@@ -23,6 +23,8 @@ Vm::Vm() : m_bStop(true), m_bWaitRes(false), m_pProcessThread(nullptr) {
 
     memset(m_region.get_address(), 0, m_region.get_size());
 
+    m_curResult = "CODE_1";
+
 }
 
 Vm::~Vm() {
@@ -41,6 +43,12 @@ void process_thread(Vm * pVm) {
 }
 
 void Vm::start() {
+
+    unsigned int priority;
+    message_queue::size_type recvd_size;
+    char res[320];
+    m_pMqRecv->try_receive(res, sizeof(res), recvd_size, priority);
+
     m_pProcessThread = new thread(process_thread, this);
 }
 
@@ -75,8 +83,6 @@ void Vm::stop() {
         m_pProcessThread = nullptr;
     }
     m_bWaitRes = false;
-
-
 }
 
 void Vm::sendCommand() {
@@ -115,7 +121,7 @@ void Vm::evalNodeList(list<Node *> &nodeList) {
         if (m_bStop) break;
 
         while (!m_bStop && m_bWaitRes) {
-            char res[32];
+            char res[320];
             if (m_pMqRecv->try_receive(res, sizeof(res), recvd_size, priority)) {
                 if (memcmp(res, "CODE_0", 6) == 0) {
                     m_bWaitRes = false;

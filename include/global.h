@@ -25,7 +25,7 @@ namespace keywords = boost::log::keywords;
 typedef vector<char> buffer_type;
 
 #define TCP_RECV_BUF_SIZE 62000             //tcp接收缓存大小
-#define SHARE_MEMORY_SIZE 4096              //共享内存大小
+#define SHARE_MEMORY_SIZE 8192              //共享内存大小
 
 
 

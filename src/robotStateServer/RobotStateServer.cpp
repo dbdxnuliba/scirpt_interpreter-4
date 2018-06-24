@@ -42,14 +42,16 @@ void robotState_thread(RobotStateServer * pServer) {
         //robot state转为网络发送包
         int len = pRobotState->pack((uint8_t*)sendData);
 
-        // 添加返回值
-        memcpy(sendData+len, pParser->m_vm.m_curResult.c_str(), pParser->m_vm.m_curResult.length());
+        // 添加返回值 size + string
+        uint8_t size = pParser->m_vm.m_curResult.length();
+        memcpy(sendData+len, &size, sizeof(size));
+        memcpy(sendData+len+sizeof(size), pParser->m_vm.m_curResult.c_str(), pParser->m_vm.m_curResult.length());
 
         //发送共享内存数据
-        //pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len);
+        pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len+sizeof(size)+pParser->m_vm.m_curResult.length());
 
         //usleep(100);
-        sleep(2);
+        sleep(5);
     }
     delete[] shareData;
     shareData = nullptr;

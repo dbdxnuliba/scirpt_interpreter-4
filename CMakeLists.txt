@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 project(ParserServer)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -15,7 +15,7 @@ add_executable(ParserServer main.cpp
         src/Parser/vm/robot_state.h src/Parser/vm/robot_state.cpp include/endian.h src/Parser/xmlReader/XmlReader.cpp src/Parser/xmlReader/XmlReader.h src/util/StringUtil.hpp src/util/IntegerUtil.hpp src/util/memUtil.hpp)
 
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost 1.67.0 REQUIRED COMPONENTS log log_setup thread system filesystem)
+find_package(Boost 1.67.0 REQUIRED COMPONENTS log_setup log thread system filesystem)
 
 #添加头文件搜索路径
 include_directories(/usr/local/include)
@@ -23,4 +23,4 @@ include_directories(/usr/local/include)
 #添加库文件搜索路径
 link_directories(/usr/local/lib)
 
-target_link_libraries(ParserServer ${Boost_LIBRARIES})
+target_link_libraries(ParserServer ${Boost_LIBRARIES} pthread)

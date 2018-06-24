@@ -425,11 +425,11 @@ Node *Parser::stmt_Speedj() {
     }
 
     match('[');
-    for (int i=0;i<6;i++){
+    for (int i=0;i<7;i++){
         if (m_curToken->Tag == tag_DOUBLE) {
             node->axis[i] = m_curToken->Tag == tag_INT ? ((Integer*)m_curToken)->value : ((Double*)m_curToken)->value;
             match(tag_DOUBLE);
-            if (i<5) match(',');
+            if (i<6) match(',');
         }
     }
     match(']');
@@ -542,11 +542,12 @@ Node *Parser::stmt_TeachMode() {
     match(tag_TEACH_MODE);
 
     match('(');
-    if (m_curToken->Tag == tag_INT) {
-        node->id = ((Integer*)m_curToken)->value;
-        match(tag_INT);
-        match(',');
-    }
+//    if (m_curToken->Tag == tag_INT) {
+//        node->id = ((Integer*)m_curToken)->value;
+//        match(tag_INT);
+//        match(',');
+//    }
+    node->id = 0;
 
 
     node->x = m_curToken->Tag == tag_INT ? ((Integer*)m_curToken)->value : ((Double*)m_curToken)->value;

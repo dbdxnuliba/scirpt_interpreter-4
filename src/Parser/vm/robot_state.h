@@ -137,6 +137,22 @@ struct robot_mode_data //ROBOT_MODE_DATA = 0
     double targetSpeedFraction;
     double speedScaling;
     double targetSpeedFractionLimit;
+
+    robot_mode_data() {
+        timestamp = 4567890;
+        isRobotConnected = true;
+        isRealRobotEnabled = true;
+        isPowerOnRobot = true;
+        isEmergencyStopped = true;
+        isProtectiveStopped = true;
+        isProgramRunning = false;
+        isProgramPaused = true;
+        robotMode = 12;
+        controlMode = 13;
+        targetSpeedFraction = 0.7;
+        speedScaling = 0.8;
+        targetSpeedFractionLimit = 1.8;
+    }
 };
 
 
@@ -198,6 +214,16 @@ struct joint_data //JOINT_DATA = 1
     float  T_motor_7;
     float  T_micro_7;
     unsigned char  jointMode_7;
+
+    joint_data() {
+        q_actual_1 = 0.9;
+        q_target_1 = 0.1;
+        qd_actual_1 = 0.4;
+        I_actual_1 = 1.1;
+        T_micro_7 = 0.8;
+        jointMode_7 = 1;
+
+    }
 };
 
 struct cartesian_info //CARTESIAN_INFO = 4
@@ -215,6 +241,10 @@ struct cartesian_info //CARTESIAN_INFO = 4
     double TCPOffsetRy;
     double TCPOffsetRz;
     double Rn;
+    cartesian_info() {
+        X = 1.23;
+        Rn = 2.22;
+    }
 };
 
 struct masterboard_data //MASTERBOARD_DATA = 3
@@ -243,6 +273,15 @@ struct masterboard_data //MASTERBOARD_DATA = 3
     uint32_t uburso;
     uint8_t operationalModeSelectorInput;
     uint8_t threePositionEnablingDeviceInput;
+
+    masterboard_data() {
+        digitalInputBits = 2;
+        digitalOutputBits = 4;
+        euromap67InterfaceInstalled = 1;
+        euromapCurrent = 4.5;
+        threePositionEnablingDeviceInput = 9;
+
+    }
 };
 
 struct configuration_data
@@ -335,6 +374,15 @@ struct configuration_data
     int controllerBoxType;
     int robotType;
     int robotSubType;
+
+    configuration_data() {
+        jointMinLimit_1 = 9.9;
+        jointMaxLimitt_6 = 9.3;
+
+        DHtheta_6 = 1.1;
+        masterboardVersion = 2;
+        robotSubType = 1;
+    }
 };
 
 struct additional_info
@@ -342,6 +390,10 @@ struct additional_info
     bool freedriveButtonPressed;
     bool freedriveButtonEnabled;
     bool IOEnabledFreedrive;
+
+    additional_info() {
+        freedriveButtonPressed = true;
+    }
 };
 
 struct version_message
@@ -358,7 +410,11 @@ struct version_message
     char *build_date;
 
     version_message () {
+        major_version = 3;
+        svn_revision = 9;
+        project_name_size = 0;
         project_name = nullptr;
+        build_date_size = 0;
         build_date = nullptr;
     }
     ~version_message() {
@@ -379,6 +435,13 @@ struct safetyModeMessage
     char *textMessage;
 
     safetyModeMessage(){
+        timestamp = 0;
+        source = 0;
+        robot_message_type = 1;
+        robotMessageCode = 1;
+        robotMessageArgument = 1;
+        safetyModeType = 1;
+        textmessage_size = 0;
         textMessage = nullptr;
     }
     ~safetyModeMessage(){
@@ -398,6 +461,8 @@ struct robotcommMessage
     char *textMessage;
 
     robotcommMessage() {
+        robotMessageCode = 1;
+        textmessage_size = 0;
         textMessage = nullptr;
     }
 
@@ -419,7 +484,10 @@ struct keyMessage
     char * textMessage;
 
     keyMessage() {
+        robotMessageArgument = 2;
+        titleSize = 0;
         messageTitle = nullptr;
+        textMessage_size = 0;
         textMessage = nullptr;
     }
 
@@ -439,6 +507,9 @@ struct labelMessage
     char *textMessage;
 
     labelMessage(){
+        source = 1;
+        id = 2;
+        textMessage_size = 0;
         textMessage = nullptr;
     }
     ~labelMessage(){
@@ -455,6 +526,8 @@ struct globalVariablesSetupMessage
     char * variableNames;
 
     globalVariablesSetupMessage(){
+        startIndex = 2;
+        variableNames_size = 0;
         variableNames = nullptr;
     }
     ~globalVariablesSetupMessage(){
@@ -641,6 +714,7 @@ private:
 
     double ntohd(uint64_t nf);
     double htond(uint64_t nf);
+
 
 public:
     RobotState(std::condition_variable& msg_cond);
@@ -909,6 +983,21 @@ public:
 
 
 	void unpackFromMem(uint8_t * buf, unsigned int buf_length);
+    void unpackFromMemRobotStateMasterboard(uint8_t * buf, unsigned int offset);
+    void unpackFromMemRobotMode(uint8_t * buf, unsigned int offset);
+    void unpackFromMemJointData(uint8_t * buf, unsigned int offset);
+    void unpackFromMemCartesianInfo(uint8_t * buf, unsigned int offset);
+    void unpackFromMemConfigurationData(uint8_t *buf, unsigned int offset);
+    void unpackFromMemAdditionalInfo(uint8_t *buf, unsigned int offset);
+
+    unsigned int unpackFromMemRobotMessageVersion(uint8_t * buf, unsigned int offset);
+    unsigned int unpackFromMemSafetyModeMessage(uint8_t *buf, unsigned int offset);
+    unsigned int unpackFromMemRobotcommMessage(uint8_t *buf, unsigned int offset);
+    unsigned int unpackFromMemKeyMessage(uint8_t *buf, unsigned int offset);
+    unsigned int unpackFromMemLabelMessage(uint8_t *buf, unsigned int offset);
+
+    unsigned int unpackFromMemGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
+
     unsigned int packToMem(uint8_t * buf);
 
     };
