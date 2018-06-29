@@ -940,18 +940,26 @@ public:
     bool getNewDataAvailable();
     void finishedReading();
 
-    //todo unpack 解释器不用，暂不实现
-    void unpack(uint8_t * buf, unsigned int buf_length);
-    void unpackRobotState(uint8_t * buf, unsigned int offset, uint32_t len);
-    void unpackRobotStateMasterboard(uint8_t * buf, unsigned int offset);
-    void unpackRobotMode(uint8_t * buf, unsigned int offset);
-	void unpackJointData(uint8_t * buf, unsigned int offset);
-	void unpackCartesianInfo(uint8_t * buf, unsigned int offset);
-    void unpackConfigurationData(uint8_t *buf, unsigned int offset);
-    void unpackAdditionalInfo(uint8_t *buf, unsigned int offset);
+    //todo unpack from net 解释器不用，暂不实现
+    unsigned int unpack(uint8_t * buf, unsigned int buf_length);
 
-    void unpackRobotMessage(uint8_t * buf, unsigned int offset, uint32_t len);
-    void unpackRobotMessageVersion(uint8_t * buf, unsigned int offset, uint32_t len);
+    unsigned int unpackRobotState(uint8_t * buf, unsigned int offset, uint32_t len);
+
+    unsigned int unpackRobotStateMasterboard(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackRobotMode(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackJointData(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackCartesianInfo(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackConfigurationData(uint8_t *buf, unsigned int offset);
+
+    unsigned int unpackAdditionalInfo(uint8_t *buf, unsigned int offset);
+
+    unsigned int unpackRobotMessage(uint8_t * buf, unsigned int offset, uint32_t len);
+
+    unsigned int unpackRobotMessageVersion(uint8_t * buf, unsigned int offset, uint32_t len);
 
     unsigned int unpackRobotMessageVersion(uint8_t * buf, unsigned int offset);
     unsigned int unpackSafetyModeMessage(uint8_t *buf, unsigned int offset);
@@ -961,6 +969,7 @@ public:
 
     unsigned int unpackGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
 
+    /** pack to net*/
     unsigned int pack(uint8_t* buf);
 
 	unsigned int packRobotState(uint8_t* buf, unsigned int offset, uint8_t package_type);
@@ -982,13 +991,20 @@ public:
     unsigned int packGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
 
 
-	void unpackFromMem(uint8_t * buf, unsigned int buf_length);
-    void unpackFromMemRobotStateMasterboard(uint8_t * buf, unsigned int offset);
-    void unpackFromMemRobotMode(uint8_t * buf, unsigned int offset);
-    void unpackFromMemJointData(uint8_t * buf, unsigned int offset);
-    void unpackFromMemCartesianInfo(uint8_t * buf, unsigned int offset);
-    void unpackFromMemConfigurationData(uint8_t *buf, unsigned int offset);
-    void unpackFromMemAdditionalInfo(uint8_t *buf, unsigned int offset);
+    /** unpack from memory*/
+    unsigned int unpackFromMem(uint8_t * buf, unsigned int buf_length);
+
+    unsigned int unpackFromMemRobotStateMasterboard(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackFromMemRobotMode(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackFromMemJointData(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackFromMemCartesianInfo(uint8_t * buf, unsigned int offset);
+
+    unsigned int unpackFromMemConfigurationData(uint8_t *buf, unsigned int offset);
+
+    unsigned int unpackFromMemAdditionalInfo(uint8_t *buf, unsigned int offset);
 
     unsigned int unpackFromMemRobotMessageVersion(uint8_t * buf, unsigned int offset);
     unsigned int unpackFromMemSafetyModeMessage(uint8_t *buf, unsigned int offset);
@@ -998,7 +1014,25 @@ public:
 
     unsigned int unpackFromMemGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
 
+    /** pack to memory*/
     unsigned int packToMem(uint8_t * buf);
+    unsigned int packToMemRobotState(uint8_t* buf, unsigned int offset, uint8_t packToMemage_type);
+    unsigned int packToMemRobotMode(uint8_t * buf, unsigned int offset);
+    unsigned int packToMemJointData(uint8_t * buf, unsigned int offset);
+    unsigned int packToMemCartesianInfo(uint8_t * buf, unsigned int offset);
+    unsigned int packToMemRobotStateMasterboard(uint8_t * buf, unsigned int offset);
+    unsigned int packToMemConfigurationData(uint8_t *buf, unsigned int offset);
+    unsigned int packToMemAdditionalInfo(uint8_t *buf, unsigned int offset);
+
+    unsigned int packToMemRobotMessage(uint8_t* buf, unsigned int offset, uint8_t packToMemage_type);
+    unsigned int packToMemRobotMessageVersion(uint8_t* buf, unsigned int offset);
+    unsigned int packToMemSafetyModeMessage(uint8_t *buf, unsigned int offset);
+    unsigned int packToMemRobotcommMessage(uint8_t *buf, unsigned int offset);
+    unsigned int packToMemKeyMessage(uint8_t *buf, unsigned int offset);
+    unsigned int packToMemLabelMessage(uint8_t *buf, unsigned int offset);
+
+    unsigned int packToMemProgramMessage(uint8_t* buf, unsigned int offset, uint8_t packToMemage_type);
+    unsigned int packToMemGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
 
     };
 

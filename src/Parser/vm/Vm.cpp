@@ -9,8 +9,8 @@ Vm::Vm() : m_bStop(true), m_bWaitRes(false), m_pProcessThread(nullptr) {
     message_queue::remove("message_queue_send");
     message_queue::remove("message_queue_recv");
 
-    m_pMqSend = new message_queue(open_or_create, "message_queue_send", 10, 256);
-    m_pMqRecv = new message_queue(open_or_create, "message_queue_recv", 10, 32);
+    m_pMqSend = new message_queue(open_or_create, "message_queue_send", 10, 256);       //发送脚本
+    m_pMqRecv = new message_queue(open_or_create, "message_queue_recv", 10, 32);        //接收返回值
 
     m_xmlReader.readXml("./xml/param.xml");
 
