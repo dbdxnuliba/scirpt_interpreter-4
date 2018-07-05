@@ -167,9 +167,9 @@ struct Movej_Node : Node {
     string toString() override {
         stringstream ss;
         ss << "movej(" << "[" ;
-        for (int i=0; i<6; i++) {
+        for (int i=0; i<7; i++) {
             ss << axis[i];
-            if (i<5) ss<<',';
+            if (i<6) ss<<',';
         }
         ss<<"],"<<a<<","<<v <<"," << t <<"," << r << ")";
         return ss.str();

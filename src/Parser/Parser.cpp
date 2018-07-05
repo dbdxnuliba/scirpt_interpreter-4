@@ -28,10 +28,20 @@ void Parser::parse() {
     m_lexer.m_column = 0;
     m_vm.reset();
     m_curToken = m_lexer.next();
+    bool isSuccess = true;
     while (m_curToken->Tag != EOF) {
-        m_vm.m_nodeList.push_back(stmt());
+        Node* pNode = stmt();
+        if (pNode)
+            m_vm.m_nodeList.push_back(pNode);
+        else
+        {
+            isSuccess = false;
+            break;
+        }
+
     }
-    m_vm.start();
+    if (isSuccess)
+        m_vm.start();
 }
 
 Node *Parser::stmt_if() {
