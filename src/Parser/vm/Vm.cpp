@@ -4,7 +4,7 @@
 
 #include "Vm.h"
 
-Vm::Vm() : m_bStop(true), m_bWaitRes(false), m_pProcessThread(nullptr) {
+Vm::Vm() : scl(keywords::channel = "vm_class"), m_bStop(true), m_bWaitRes(false), m_pProcessThread(nullptr) {
 
     message_queue::remove("message_queue_send");
     message_queue::remove("message_queue_recv");
@@ -65,8 +65,11 @@ void Vm::reset() {
     m_globalParams.global_variable.clear();
 }
 
+int nSendScript = 0;
 void Vm::sendToMq(string strData) {
     try{
+        nSendScript++;
+        BOOST_LOG_SEV(scl, info) << "send script, total : " << nSendScript;
         m_pMqSend->send(strData.c_str(), strData.size(), 0);
     }
     catch(interprocess_exception &ex){

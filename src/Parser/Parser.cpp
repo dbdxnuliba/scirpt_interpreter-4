@@ -166,7 +166,7 @@ Node *Parser::stmt() {
         case tag_MOVECAMERA:
             return stmt_MoveCamera();
         default:
-            BOOST_LOG_SEV(scl, severity_level::error) << __FUNCTION__ << ":" << __LINE__ << "unknow tag： column: "<< m_lexer.m_column << "- tag:" << m_curToken->Tag;
+            BOOST_LOG_SEV(scl, severity_level::error) << __FUNCTION__ << ":" << __LINE__ << "  unknow tag： column: "<< m_lexer.m_column << "- tag:" << m_curToken->Tag;
     }
 
     return nullptr;
@@ -332,11 +332,11 @@ Node *Parser::stmt_Movej() {
     }
 
     match('[');
-    for (int i=0;i<6;i++){
+    for (int i=0;i<7;i++){
         if (m_curToken->Tag == tag_DOUBLE) {
             node->axis[i] = m_curToken->Tag == tag_INT ? ((Integer*)m_curToken)->value : ((Double*)m_curToken)->value;
             match(tag_DOUBLE);
-            if (i<5) match(',');
+            if (i<6) match(',');
         }
     }
     match(']');
@@ -633,7 +633,10 @@ Node *Parser::stmt_MoveCamera() {
     return node;
 }
 
+int nRecvScript = 0;
 void Parser::setScript(string str) {
+    nRecvScript++;
+    BOOST_LOG_SEV(scl, info) << "receive script, total : " << nRecvScript;
     saveScript(str);
     if (str[0] != '#') {
         if (str == "power on") {

@@ -138,6 +138,9 @@ public:
     string m_curResult;            //当前返回值
 
 private:
+    src::severity_channel_logger<severity_level, std::string> scl;
+
+
     condition_variable m_cv;
     shared_memory_object m_shm;
     mapped_region m_region;
@@ -151,7 +154,7 @@ private:
 
 //movej节点
 struct Movej_Node : Node {
-    double axis[6];
+    double axis[7];
     double a;
     double v;
     int t;
