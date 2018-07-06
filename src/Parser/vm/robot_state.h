@@ -550,6 +550,12 @@ struct requestValueMessage
     uint8_t textMessage_size;
     char * textMessage;
 
+    requestValueMessage() {
+        messageTitle_size = 0;
+        messageTitle = nullptr;
+        textMessage_size = 0;
+        textMessage = nullptr;
+    }
     ~requestValueMessage(){
         ZX_DELETE(messageTitle);
         ZX_DELETE(textMessage);
@@ -564,6 +570,10 @@ struct textMessageStruct
     uint8_t textMessage_size;
     char * textMessage;
 
+    textMessageStruct() {
+        textMessage_size = 0;
+        textMessage = nullptr;
+    }
     ~textMessageStruct(){
         ZX_DELETE(textMessage);
     }
@@ -577,6 +587,11 @@ struct runtimeExceptionMessage
     uint8_t textMessage_size;
     char * textMessage;
 
+
+    runtimeExceptionMessage() {
+        textMessage_size = 0;
+        textMessage = nullptr;
+    }
     ~runtimeExceptionMessage(){
         ZX_DELETE(textMessage);
     }
@@ -591,6 +606,12 @@ struct varMessage
     uint8_t messageText_size;
     char * messageText;
 
+    varMessage() {
+        titleSize = 0;
+        messageTitle = nullptr;
+        messageText_size = 0;
+        messageText = nullptr;
+    }
     ~varMessage(){
         ZX_DELETE(messageTitle);
         ZX_DELETE(messageText);
@@ -616,9 +637,11 @@ struct globalVariablesUpdateMessage_string
 {
     unsigned short length;
     char * value;
-    ~globalVariablesUpdateMessage_string(){
-        ZX_DELETE(value);
-    }
+
+
+//    ~globalVariablesUpdateMessage_string(){
+//        ZX_DELETE(value);
+//    }
 };
 
 struct globalVariablesUpdateMessage_pose
