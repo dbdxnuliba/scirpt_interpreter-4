@@ -149,7 +149,6 @@ private:
     message_queue *m_pMqRecv;
     thread *m_pProcessThread;
     COMMAND m_command;
-
 };
 
 //movej节点
@@ -178,7 +177,7 @@ struct Movej_Node : Node {
         if (*bStop) return;
 
         bool res = true;
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 7; ++i) {
             if (axis[i] > pMechanicalarm->movej.paxis[i].max ||
                 axis[i] < pMechanicalarm->movej.paxis[i].min) {
                 res = false;

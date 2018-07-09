@@ -44,6 +44,7 @@ void XmlReader::readXml(string xmlFile) {
             setSubNodeDouble(&pos.second.get_child("p.AXIS4"), &m_mechanicalarm->movej.paxis[3]);
             setSubNodeDouble(&pos.second.get_child("p.AXIS5"), &m_mechanicalarm->movej.paxis[4]);
             setSubNodeDouble(&pos.second.get_child("p.AXIS6"), &m_mechanicalarm->movej.paxis[5]);
+            setSubNodeDouble(&pos.second.get_child("p.AXIS7"), &m_mechanicalarm->movej.paxis[6]);
             setSubNodeDouble(&pos.second.get_child("a"), &m_mechanicalarm->movej.a);
             setSubNodeDouble(&pos.second.get_child("v"), &m_mechanicalarm->movej.v);
             setSubNode(&pos.second.get_child("t"), &m_mechanicalarm->movej.t);

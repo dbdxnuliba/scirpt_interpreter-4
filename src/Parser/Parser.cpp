@@ -26,6 +26,7 @@ Parser::~Parser() {
 
 void Parser::parse() {
     m_lexer.m_column = 0;
+    m_vm.stop();
     m_vm.reset();
     m_curToken = m_lexer.next();
     bool isSuccess = true;

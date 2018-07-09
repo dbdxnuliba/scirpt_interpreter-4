@@ -31,50 +31,55 @@
         <node namespace="movej" type = "def" modal="movej(p,a,v,t,r)">
             <p>
                 <AXIS1 mold="double">
-                    <min>0</min>
-                    <max>10</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS1>
                 <AXIS2 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS2>
                 <AXIS3 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS3>
                 <AXIS4 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS4>
                 <AXIS5 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS5>
                 <AXIS6 mold="double">
-                    <min>0</min>
-                    <max>10</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS6>
+                <AXIS7 mold="double">
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
+                </AXIS7>
             </p>
             <a mold="double">
                 <min>0</min>
-                <max>100</max>
-                <default>10</default>
+                <max>6.28</max>
+                <default>6.28</default>
             </a>
             <v mold="double">
                 <min>0</min>
-                <max>100</max>
+                <max>10</max>
                 <default>10</default>
             </v>
             <t mold="int">
                 <min>0</min>
                 <max>1000</max>
-                <default>10</default>
+                <default>100</default>
             </t>
             <r mold="double">
                 <min>0</min>
@@ -86,45 +91,45 @@
         <node namespace="movel" type = "def" modal="movel(pose,a,v,t,r)">
             <pose>
                 <X mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </X>
                 <Y mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </Y>
                 <Z mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </Z>
                 <RX mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RX>
                 <RY mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RY>
                 <RZ mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RZ>
                 <RN mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RN>
             </pose>
             <a mold="double">
                 <min>0</min>
-                <max>100</max>
-                <default>10</default>
+                <max>6.28</max>
+                <default>6.28</default>
             </a>
             <v mold="double">
                 <min>0</min>
@@ -134,11 +139,11 @@
             <t mold="int">
                 <min>0</min>
                 <max>1000</max>
-                <default>10</default>
+                <default>100</default>
             </t>
             <r mold="double">
                 <min>0</min>
-                <max>100</max>
+                <max>10</max>
                 <default>10</default>
             </r>
         </node>
@@ -146,44 +151,49 @@
         <node namespace="speedj" type = "def" modal="speedj(qd,a,t_min)">
             <qd>
                 <AXIS1 mold="double">
-                    <min>0</min>
-                    <max>10</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS1>
                 <AXIS2 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS2>
                 <AXIS3 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS3>
                 <AXIS4 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS4>
                 <AXIS5 mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS5>
                 <AXIS6 mold="double">
-                    <min>0</min>
-                    <max>10</max>
-                    <default>10</default>
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
                 </AXIS6>
+                <AXIS7 mold="double">
+                    <min>-3.14</min>
+                    <max>3.14</max>
+                    <default>0</default>
+                </AXIS7>
             </qd>
             <a mold="double">
                 <min>0</min>
-                <max>10</max>
-                <default>9990</default>
+                <max>6.28</max>
+                <default>6.28</default>
             </a>
             <t_min mold="int">
                 <min>0</min>
-                <max>100</max>
+                <max>1000</max>
                 <default>100</default>
             </t_min>
         </node>
@@ -191,44 +201,49 @@
         <node namespace="speedl" type = "def" modal="speedl(xd,a,t_min)">
             <xd>
                 <X mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </X>
                 <Y mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </Y>
                 <Z mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </Z>
                 <RX mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RX>
                 <RY mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RY>
                 <RZ mold="double">
-                    <min>0</min>
-                    <max>100</max>
-                    <default>10</default>
+                    <min>-800</min>
+                    <max>800</max>
+                    <default>0</default>
                 </RZ>
+                <!--<RN mold="double">-->
+                    <!--<min>-800</min>-->
+                    <!--<max>800</max>-->
+                    <!--<default></default>-->
+                <!--</RN>-->
             </xd>
             <a mold="double">
                 <min>0</min>
-                <max>100</max>
-                <default>10</default>
+                <max>6.28</max>
+                <default>6.28</default>
             </a>
             <t_min mold="int">
                 <min>0</min>
-                <max>100</max>
+                <max>1000</max>
                 <default>100</default>
             </t_min>
         </node>
@@ -236,15 +251,15 @@
         <node namespace="stopj" type = "def" modal="stopj(a)">
             <a mold="double">
                 <min>0</min>
-                <max>100</max>
-                <default>10</default>
+                <max>6.28</max>
+                <default>6.28</default>
             </a>
         </node>
         <node namespace="stopl" type = "def" modal="stopl(a)">
             <a mold="double">
                 <min>0</min>
-                <max>100</max>
-                <default>2</default>
+                <max>6.28</max>
+                <default>6.28</default>
             </a>
         </node>
         <node namespace="teach_mode" type = "def" modal="teach_mode(x,y,z,Rx,Ry,Rz)">

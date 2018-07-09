@@ -31,7 +31,7 @@ struct sub_node_double {
 struct MOVEJ {
     string type;
     string modal;
-    sub_node_double paxis[6];
+    sub_node_double paxis[7];
     sub_node_double a;
     sub_node_double v;
     sub_node t;

@@ -122,9 +122,8 @@ void Vm::evalNodeList(list<Node *> &nodeList) {
     message_queue::size_type recvd_size;
     for (auto node : nodeList) {
         if (m_bStop) break;
-
         while (!m_bStop && m_bWaitRes) {
-            char res[320];
+            char res[320] = {0};
             if (m_pMqRecv->try_receive(res, sizeof(res), recvd_size, priority)) {
                 if (memcmp(res, "CODE_0", 6) == 0) {
                     m_bWaitRes = false;
@@ -134,6 +133,7 @@ void Vm::evalNodeList(list<Node *> &nodeList) {
                 m_curResult = string(res);
             }
         }
+
 
         node->eval();
         if (!m_bStop) {
