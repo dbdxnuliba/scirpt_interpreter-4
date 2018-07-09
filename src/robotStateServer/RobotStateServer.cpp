@@ -53,7 +53,7 @@ void robotState_thread(RobotStateServer * pServer) {
         pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len+sizeof(size)+pParser->m_vm.m_curResult.length());
 
         if (pRobotStateServer->m_sendTimestep < 0)
-            usleep(100);
+            usleep(100000);
         else
             sleep(pRobotStateServer->m_sendTimestep);
     }
