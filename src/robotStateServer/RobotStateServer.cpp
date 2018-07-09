@@ -16,6 +16,8 @@ RobotStateServer::RobotStateServer(ServerManager *pServerManager) : m_isStop(fal
 
     memset(m_region.get_address(), 0, m_region.get_size());
 
+    m_sendTimestep = -1;
+
 }
 
 void robotState_thread(RobotStateServer * pServer) {
@@ -50,8 +52,10 @@ void robotState_thread(RobotStateServer * pServer) {
         //发送共享内存数据
         pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len+sizeof(size)+pParser->m_vm.m_curResult.length());
 
-        //usleep(100);
-        sleep(5);
+        if (pRobotStateServer->m_sendTimestep < 0)
+            usleep(100);
+        else
+            sleep(pRobotStateServer->m_sendTimestep);
     }
     delete[] shareData;
     shareData = nullptr;

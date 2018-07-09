@@ -29,6 +29,8 @@ public:
 public:
     ServerManager *m_pServerManager;
 
+    int m_sendTimestep;     //发送状态间隔
+
 private:
 
     shared_memory_object m_shm;
