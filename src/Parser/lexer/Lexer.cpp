@@ -27,7 +27,6 @@ Lexer::~Lexer() {
 }
 
 Token *Lexer::next() {
-
     while (m_column < m_strScript.length()) {
         //跳过 #def
         if (m_strScript[m_column] == '#') {
@@ -73,7 +72,7 @@ Token *Lexer::match_id() {
 
     for (auto word : m_words) {
         if (word.first == str) {
-            return word.second;
+            return new Word(word.second->Tag, word.second->word);
         }
     }
 

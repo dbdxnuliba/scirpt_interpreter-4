@@ -134,12 +134,20 @@ Node *Parser::stmt_if() {
 
 bool Parser::match(int Tag) {
     if (m_curToken->Tag == Tag){
+        if (m_curToken) {
+            delete m_curToken;
+            m_curToken = nullptr;
+        }
         m_curToken = m_lexer.next();
         return true;
     }
 
 
     BOOST_LOG_SEV(scl, severity_level::error) << __FUNCTION__ << ":" << __LINE__ << "column "<< m_lexer.m_column << " : " << Tag <<" not match.";
+    if (m_curToken) {
+        delete m_curToken;
+        m_curToken = nullptr;
+    }
     m_curToken = m_lexer.next();
 
     return false;

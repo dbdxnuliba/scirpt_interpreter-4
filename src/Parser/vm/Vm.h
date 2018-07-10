@@ -608,8 +608,8 @@ struct Set_Node : Node {
     void eval() override {
         if (*bStop) return;
 
-        for (auto o : pGlobalParams->dos) {
-            o = 0;
+        for (int i=0; i< 16; i++) {
+            pGlobalParams->dos[i] = 0;
         }
 
         for (auto io : dos) {

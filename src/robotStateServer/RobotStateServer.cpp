@@ -59,6 +59,9 @@ void robotState_thread(RobotStateServer * pServer) {
     }
     delete[] shareData;
     shareData = nullptr;
+
+    delete[] sendData;
+    sendData = nullptr;
 }
 
 void RobotStateServer::run() {
