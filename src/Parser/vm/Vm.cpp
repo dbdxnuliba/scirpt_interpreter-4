@@ -23,7 +23,7 @@ Vm::Vm() : scl(keywords::channel = "vm_class"), m_bStop(true), m_bWaitRes(false)
 
     memset(m_region.get_address(), 0, m_region.get_size());
 
-    m_curResult = "CODE_1";
+    m_curResult = "CODE_0";
 
 }
 
