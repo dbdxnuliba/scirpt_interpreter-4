@@ -3,7 +3,7 @@
 #include "src/ServerManager/ServerManager.h"
 
 
-int main(int argc, char* argv[]) {
+int	main(int argc, char* argv[]) {
     init_log_environment("./config/log.config");
 
     //参数变量初始化

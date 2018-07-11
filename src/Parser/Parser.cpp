@@ -28,6 +28,10 @@ void Parser::parse() {
     m_lexer.m_column = 0;
     m_vm.stop();
     m_vm.reset();
+    if (m_curToken) {
+        delete m_curToken;
+        m_curToken = nullptr;
+    }
     m_curToken = m_lexer.next();
     bool isSuccess = true;
     while (m_curToken->Tag != EOF) {
