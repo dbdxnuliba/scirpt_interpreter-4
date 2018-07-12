@@ -151,6 +151,14 @@ void Vm::evalNodeList(list<Node *> &nodeList) {
             }
         }
     }
+
+    while (!m_bStop && m_bWaitRes) {
+        char res[320] = {0};
+        if (m_pMqRecv->try_receive(res, sizeof(res), recvd_size, priority)) {
+            m_bStop = true;
+            m_curResult = string(res);
+        }
+    }
 }
 
 

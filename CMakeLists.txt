@@ -7,7 +7,6 @@ add_executable(ParserServer main.cpp
         src/tcp/tcpServer.cpp src/tcp/tcpServer.h
         src/util/log.hpp src/ServerManager/ServerManager.cpp
         src/ServerManager/ServerManager.h include/global.h
-        src/xmlReader.h
         include/xmlStructs.h src/Parser/lexer/Lexer.cpp src/Parser/lexer/Lexer.h
         src/Parser/Parser.cpp src/Parser/Parser.h src/Parser/vm/Vm.cpp
         src/Parser/vm/Vm.h src/robotStateServer/RobotStateServer.cpp

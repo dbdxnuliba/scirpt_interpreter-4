@@ -75,6 +75,7 @@ void XmlReader::readXml(string xmlFile) {
             setSubNodeDouble(&pos.second.get_child("qd.AXIS4"), &m_mechanicalarm->speedj.pd_axis[3]);
             setSubNodeDouble(&pos.second.get_child("qd.AXIS5"), &m_mechanicalarm->speedj.pd_axis[4]);
             setSubNodeDouble(&pos.second.get_child("qd.AXIS6"), &m_mechanicalarm->speedj.pd_axis[5]);
+            setSubNodeDouble(&pos.second.get_child("qd.AXIS7"), &m_mechanicalarm->speedj.pd_axis[6]);
             setSubNodeDouble(&pos.second.get_child("a"), &m_mechanicalarm->speedj.a);
             setSubNode(&pos.second.get_child("t_min"), &m_mechanicalarm->speedj.t_min);
 

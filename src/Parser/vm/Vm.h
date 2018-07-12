@@ -248,7 +248,7 @@ struct Movel_Node : Node {
 };
 
 struct Speedj_Node : Node {
-    double axis[6];
+    double axis[7];
     double a;
     int t_min;
 
@@ -259,9 +259,9 @@ struct Speedj_Node : Node {
     string toString() override {
         stringstream ss;
         ss << "speedj(" << "[" ;
-        for (int i=0; i<6; i++) {
+        for (int i=0; i<7; i++) {
             ss << axis[i];
-            if (i<5) ss<<',';
+            if (i<6) ss<<',';
         }
         ss<<"],"<<a<<","<<t_min<< ")";
         return ss.str();
@@ -271,7 +271,7 @@ struct Speedj_Node : Node {
         if (*bStop) return;
 
         bool res = true;
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 7; ++i) {
             if (axis[i] > pMechanicalarm->speedj.pd_axis[i].max ||
                     axis[i] < pMechanicalarm->speedj.pd_axis[i].min) {
                 res = false;

@@ -51,7 +51,7 @@ struct MOVEL {
 struct SPEEDJ {
     string type;
     string modal;
-    sub_node_double pd_axis[6];
+    sub_node_double pd_axis[7];
     sub_node_double a;
     sub_node t_min;
 };
