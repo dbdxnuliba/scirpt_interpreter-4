@@ -678,7 +678,18 @@ void Parser::setScript(string str) {
         }
 
         string strTcpRes = m_vm.m_xmlReader.m_mechanicalarm->params[str];
-        m_pServerManager->m_pTcpServer->send(strTcpRes.c_str(), strTcpRes.size());
+
+        unsigned int totalLength = sizeof(totalLength);
+        totalLength += strTcpRes.size();
+        char *buf = new char[totalLength];
+        totalLength = htonl(totalLength);
+        memcpy(buf, &totalLength, sizeof(totalLength));
+        memcpy(buf + sizeof(totalLength), strTcpRes.c_str(), strTcpRes.size());
+
+        m_pServerManager->m_pTcpServer->send(buf, ntohl(totalLength));
+
+        delete[] buf;
+        buf = nullptr;
 
     } else if (m_vm.m_bStop) {
         m_lexer.setScript(str);

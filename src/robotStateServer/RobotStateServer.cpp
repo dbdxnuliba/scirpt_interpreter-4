@@ -49,6 +49,11 @@ void robotState_thread(RobotStateServer * pServer) {
         memcpy(sendData+len, &size, sizeof(size));
         memcpy(sendData+len+sizeof(size), pParser->m_vm.m_curResult.c_str(), pParser->m_vm.m_curResult.length());
 
+        //将包的总长度加上errorcode size
+        unsigned int totalLength = len + sizeof(size) + size;
+        totalLength = htonl(totalLength);
+        memcpy(sendData, &totalLength, sizeof(totalLength));
+
         //发送共享内存数据
         pRobotStateServer->m_pServerManager->m_pTcpServer->send(sendData, len+sizeof(size)+pParser->m_vm.m_curResult.length());
 
