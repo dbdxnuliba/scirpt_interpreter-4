@@ -32,4 +32,7 @@ typedef vector<char> buffer_type;
 #define MQ_RECV_PACKAGE_SIZE 1024           //mq单包数据大小
 #define MQ_RECV_BUF_SIZE 2048               //mq接收缓存大小
 
+
+#define _DEBUG
+
 #endif //PARSERSERVER_GLOBAL_H

@@ -20,6 +20,10 @@ RobotStateServer::RobotStateServer(ServerManager *pServerManager) : m_isStop(fal
 
 }
 
+#ifdef _DEBUG
+    int test = 0;
+#endif
+
 void robotState_thread(RobotStateServer * pServer) {
     RobotStateServer *pRobotStateServer = pServer;
     RobotState *pRobotState = pRobotStateServer->m_pServerManager->m_pParser->m_vm.m_robotState;
@@ -40,6 +44,11 @@ void robotState_thread(RobotStateServer * pServer) {
 
         // 添加当前脚本id
         pRobotState->labelMessage_.id = pParser->m_vm.m_curScriptId;
+
+#ifdef _DEBUG
+        pRobotState->robotcommMessage_.warningLevel = test % 10000000;
+        test++;
+#endif
 
         //robot state转为网络发送包
         int len = pRobotState->pack((uint8_t*)sendData);
