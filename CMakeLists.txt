@@ -22,4 +22,6 @@ include_directories(/usr/local/include)
 #添加库文件搜索路径
 link_directories(/usr/local/lib)
 
+add_definitions(-D_DEBUG) # 宏定义 _DEBUG
+
 target_link_libraries(ParserServer ${Boost_LIBRARIES} pthread)
