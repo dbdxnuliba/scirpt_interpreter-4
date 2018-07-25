@@ -69,7 +69,7 @@ int nSendScript = 0;
 void Vm::sendToMq(string strData) {
     try{
         nSendScript++;
-        BOOST_LOG_SEV(scl, info) << "send script, total : " << nSendScript;
+        BOOST_LOG_SEV(scl, info) << "send script, total : " << nSendScript << ", content: "<<strData;
         m_pMqSend->send(strData.c_str(), strData.size(), 0);
     }
     catch(interprocess_exception &ex){
