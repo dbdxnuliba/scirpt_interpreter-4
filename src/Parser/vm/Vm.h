@@ -562,7 +562,7 @@ struct Wait_Node : Node {
             bParam &= arith.eval();
 
         if (bIo && bParam) {
-            usleep(sleepMs);
+            usleep(sleepMs*1000);
         }
 
     }
