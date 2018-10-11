@@ -510,7 +510,7 @@ struct Ifelse_Node : Node {
         for (auto index : dos)
             bDos &= pGlobalParams->dos[index];
 
-        bool bIo = ifIoRadio ? bDis&bDos : bDis|bDos;
+        bool bIo = ifIoRadio ? bDis|bDos : bDis&bDos;
 
         bool bParam = true;
         for (auto arith : ariths)
@@ -555,7 +555,7 @@ struct Wait_Node : Node {
         for (auto index : dos)
             bDis &= pGlobalParams->dos[index];
 
-        bool bIo = ifIoRadio ? bDis&bDos : bDis|bDos;
+        bool bIo = ifIoRadio ? bDis|bDos : bDis&bDos;
 
         bool bParam = true;
         for (auto arith : ariths)
