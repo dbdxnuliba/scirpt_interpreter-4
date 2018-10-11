@@ -43,11 +43,11 @@ void robotState_thread(RobotStateServer * pServer) {
         IntegerUtil::Integer2Binary(pRobotState->mb_data_.digitalOutputBits, pParser->m_vm.m_globalParams.dos, 16);
 
 #ifdef _DEBUG
-        BOOST_LOG_SEV(scl, info) << "receive dis: " << pRobotState->mb_data_.digitalInputBits << ", receive dos: " << pRobotState->mb_data_.digitalOutputBits;
+        BOOST_LOG_SEV(pRobotStateServer->scl, info) << "receive dis: " << pRobotState->mb_data_.digitalInputBits << ", receive dos: " << pRobotState->mb_data_.digitalOutputBits;
         for (int i=0; i<16; i++) 
-            BOOST_LOG_SEV(scl, info) << "current dis" << i << ": " << pParser->m_vm.m_globalParams.dis[i];
+            BOOST_LOG_SEV(pRobotStateServer->scl, info) << "current dis" << i << ": " << pParser->m_vm.m_globalParams.dis[i];
         for (int i=0; i<16; i++) 
-            BOOST_LOG_SEV(scl, info) << "current dos" << i << ": " << pParser->m_vm.m_globalParams.dos[i];
+            BOOST_LOG_SEV(pRobotStateServer->scl, info) << "current dos" << i << ": " << pParser->m_vm.m_globalParams.dos[i];
 #endif
         // 添加当前脚本id
         pRobotState->labelMessage_.id = pParser->m_vm.m_curScriptId;

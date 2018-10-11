@@ -30,7 +30,7 @@ public:
     ServerManager *m_pServerManager;
 
     int m_sendTimestep;     //发送状态间隔
-
+    src::severity_channel_logger<severity_level, std::string> scl;
 private:
 
     shared_memory_object m_shm;
@@ -38,7 +38,7 @@ private:
 
     bool m_isStop;
 
-    src::severity_channel_logger<severity_level, std::string> scl;
+    
 
 
 };
