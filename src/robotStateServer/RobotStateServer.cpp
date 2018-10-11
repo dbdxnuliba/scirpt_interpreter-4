@@ -5,7 +5,7 @@
 #include "RobotStateServer.h"
 #include "../Parser/vm/robot_state.h"
 
-RobotStateServer::RobotStateServer(ServerManager *pServerManager) : m_isStop(false) {
+RobotStateServer::RobotStateServer(ServerManager *pServerManager) : m_isStop(false), scl(keywords::channel = "RobotStateServer_class") {
     m_pServerManager = pServerManager;
 
     shared_memory_object::remove("RobotState");
@@ -42,6 +42,13 @@ void robotState_thread(RobotStateServer * pServer) {
         IntegerUtil::Integer2Binary(pRobotState->mb_data_.digitalInputBits, pParser->m_vm.m_globalParams.dis, 16);
         IntegerUtil::Integer2Binary(pRobotState->mb_data_.digitalOutputBits, pParser->m_vm.m_globalParams.dos, 16);
 
+#ifdef _DEBUG
+        BOOST_LOG_SEV(scl, info) << "receive dis: " << pRobotState->mb_data_.digitalInputBits << ", receive dos: " << pRobotState->mb_data_.digitalOutputBits;
+        for (int i=0; i<16; i++) 
+            BOOST_LOG_SEV(scl, info) << "current dis" << i << ": " << pParser->m_vm.m_globalParams.dis[i];
+        for (int i=0; i<16; i++) 
+            BOOST_LOG_SEV(scl, info) << "current dos" << i << ": " << pParser->m_vm.m_globalParams.dos[i];
+#endif
         // 添加当前脚本id
         pRobotState->labelMessage_.id = pParser->m_vm.m_curScriptId;
 

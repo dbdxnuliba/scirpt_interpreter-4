@@ -38,6 +38,8 @@ private:
 
     bool m_isStop;
 
+    src::severity_channel_logger<severity_level, std::string> scl;
+
 
 };
 
