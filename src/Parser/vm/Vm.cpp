@@ -134,8 +134,6 @@ void Vm::evalNodeList(list<Node *> &nodeList) {
             }
         }
 
-
-        node->eval();
         if (!m_bStop) {
             m_curScriptId = node->id;
             if (typeid(*node) == typeid(Movej_Node) ||
@@ -150,6 +148,7 @@ void Vm::evalNodeList(list<Node *> &nodeList) {
                 m_bWaitRes = true;
             }
         }
+        node->eval();
     }
 
     while (!m_bStop && m_bWaitRes) {
