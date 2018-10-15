@@ -502,15 +502,33 @@ struct Ifelse_Node : Node {
     void eval() override {
         if (*bStop) return;
 
-        bool bDis = true, bDos = true;
+         bool bIo = false;
 
-        for (auto index : dis)
-            bDis &= pGlobalParams->dis[index];
+        if (ifIoRadio) {    //标志位位1，即有任意一项符合即为true
+            bool bDis = false, bDos = false;
 
-        for (auto index : dos)
-            bDos &= pGlobalParams->dos[index];
+            for (auto index : dis) {
+                bDis |= pGlobalParams->dis[index];
+                if (bDis) break;
+            }
+                
+            for (auto index : dos) {
+                bDos |= pGlobalParams->dos[index];
+                if (bDos) break;
+            }
+            bIo = bDis|bDos;
+            
+        } else {            //标志位位0，即dis及dos中项全对应时为true
+            bool bDis = true, bDos = true;
 
-        bool bIo = ifIoRadio ? bDis|bDos : bDis&bDos;
+            for (auto index : dis)
+                bDis &= pGlobalParams->dis[index];
+
+            for (auto index : dos)
+                bDos &= pGlobalParams->dos[index];
+
+            bIo = bDis&bDos;
+        }
 
         bool bParam = true;
         for (auto arith : ariths)
@@ -547,15 +565,33 @@ struct Wait_Node : Node {
     void eval() override {
         if (*bStop) return;
 
-        bool bDis = true, bDos = true;
+        bool bIo = false;
 
-        for (auto index : dis)
-            bDis &= pGlobalParams->dis[index];
+        if (ifIoRadio) {    //标志位位1，即有任意一项符合即为true
+            bool bDis = false, bDos = false;
 
-        for (auto index : dos)
-            bDis &= pGlobalParams->dos[index];
+            for (auto index : dis) {
+                bDis |= pGlobalParams->dis[index];
+                if (bDis) break;
+            }
+                
+            for (auto index : dos) {
+                bDos |= pGlobalParams->dos[index];
+                if (bDos) break;
+            }
+            bIo = bDis|bDos;
 
-        bool bIo = ifIoRadio ? bDis|bDos : bDis&bDos;
+        } else {            //标志位位0，即dis及dos中项全对应时为true
+            bool bDis = true, bDos = true;
+
+            for (auto index : dis)
+                bDis &= pGlobalParams->dis[index];
+
+            for (auto index : dos)
+                bDos &= pGlobalParams->dos[index];
+
+            bIo = bDis&bDos;
+        }
 
         bool bParam = true;
         for (auto arith : ariths)
