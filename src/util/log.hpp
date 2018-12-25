@@ -1,5 +1,6 @@
 //
 // Created by 朱熙 on 2018/5/31.
+// boost::log配置
 //
 
 #ifndef PARSERSERVER_LOG_H

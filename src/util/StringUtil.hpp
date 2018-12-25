@@ -11,6 +11,12 @@
 class StringUtil {
 
 public:
+    /**
+     * 按照符号进行分割字符串
+     * @param s 待分割字符串
+     * @param delim 分割字符
+     * @return 分割后字符数据
+     */
     static std::vector<std::string> split(const  std::string& s, const std::string& delim)
     {
         std::vector<std::string> elems;
@@ -32,7 +38,7 @@ public:
         return elems;
     }
 
-//通过符号进行分割字符串  int/a==5 => [int, /, a, ==, 5] 注意'.'按数字算
+//通过符号进行分割字符串  int/a==5 => [int, /, a, ==, 5] 注意'.'按数字算即小数，例如'5.5'
     static std::vector<std::string> splitWithFlag(const  std::string& s)
     {
         std::vector<std::string> elems;

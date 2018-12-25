@@ -104,54 +104,90 @@ struct Node{
     virtual string toString(){return "";}
 };
 
-
+/**
+ * vm（虚拟机）类
+ * 用于根据生成的语法树进行执行
+ */
 class Vm {
 public:
 
     Vm();
     ~Vm();
 
+    /**
+     * 复位vm
+     */
     void reset();
+    /**
+     * 启动vm
+     */
     void start();
+    /**
+     * 停止vm
+     */
     void stop();
+    /**
+     * 发送数据到boost：mq通道
+     * @param strData
+     */
     void sendToMq(string strData);
+    /**
+     * 设置vm中dos
+     * @param dos
+     */
     void setDos(int dos);
+    /**
+     * 设置vm中power状态
+     * @param bState
+     */
     void setPowerState(bool bState);
+    /**
+     * 设置play状态
+     * @param bState
+     */
     void setPlayState(bool bState);
+    /**
+     * 设置暂停状态
+     * @param bState
+     */
     void setPauseState(bool bState);
 
+    /**
+     * 根据语法树指定命令
+     * @param nodeList 语法树
+     */
     void evalNodeList(list<Node *> &nodeList);
 
 private:
     void sendCommand();
 
 public:
-    GLOBAL_PARAMS m_globalParams;
-    bool m_bStop;             //脚本执行结束标志
-    bool m_bWaitRes;            //是否需要等待返回值
+    GLOBAL_PARAMS m_globalParams;       //dis，dos，全局变量
+    bool m_bStop;                       //脚本执行结束标志
+    bool m_bWaitRes;                    //是否需要等待返回值
 
-    list<Node*> m_nodeList;
-    XmlReader m_xmlReader;
+    list<Node*> m_nodeList;             //生成的语法树
+    XmlReader m_xmlReader;              //xml解析器
 
-    RobotState* m_robotState;
-    int m_curScriptId;          //当前脚本id
-    string m_curResult;            //当前返回值
+    RobotState* m_robotState;       //robot状态
+    int m_curScriptId;              //当前脚本id
+    string m_curResult;             //当前返回值
 
 private:
     src::severity_channel_logger<severity_level, std::string> scl;
 
 
     condition_variable m_cv;
-    shared_memory_object m_shm;
-    mapped_region m_region;
+    shared_memory_object m_shm;     //下发当前COMMAND共享内存
+    mapped_region m_region;         //共享内存映射，用于读写共享内存
 
-    message_queue *m_pMqSend;
-    message_queue *m_pMqRecv;
-    thread *m_pProcessThread;
-    COMMAND m_command;
+    message_queue *m_pMqSend;       //下发脚本mq
+    message_queue *m_pMqRecv;       //接受脚本执行结果mq
+    thread *m_pProcessThread;       //vm启动线程
+    COMMAND m_command;              //poweron，pause，dos等命令
 };
 
-//movej节点
+//movej语法节点
 struct Movej_Node : Node {
     double axis[7];
     double a;
@@ -199,7 +235,7 @@ struct Movej_Node : Node {
     }
 };
 
-//movel节点
+//movel语法节点
 struct Movel_Node : Node {
     double pose[7];
     double a;

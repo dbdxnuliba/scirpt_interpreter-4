@@ -55,25 +55,63 @@ struct Double :Token{
     Double(double val) : value(val){ Tag = tag_DOUBLE; }
 };
 
+/**
+ * 词法分析器
+ */
 class Lexer {
 
 public:
     Lexer();
     ~Lexer();
 
+    /**
+     * 获取下一个词
+     * @return 下一个语法词汇的token
+     */
     Token* next();
 
+    /**
+     * 保存当前分析的位置
+     */
     int m_column;
 
 
+    /**
+     * 设置分析脚本并解析
+     * @param script
+     */
     void setScript(string script) {m_strScript = script;}
+
+    /**
+     * 读取正在分析的脚本
+     * @return
+     */
     string getScript() {return m_strScript;}
 
 
 private:
+    /**
+     * 匹配关键字
+     * @return
+     */
     Token* match_id();
+
+    /**
+     * 匹配数字
+     * @return
+     */
     Token* match_number();
+
+    /**
+     * 匹配字符串
+     * @return
+     */
     Token* match_string();
+
+    /**
+     * 匹配其他
+     * @return
+     */
     Token* match_other();
 
 private:

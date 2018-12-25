@@ -105,17 +105,32 @@ struct MECHANICALARM {
     END_TEACH_MODE end_teach;
 };
 
+/**
+ * 解析xml配置文件
+ */
 class XmlReader {
 public:
     XmlReader();
     ~XmlReader();
 
 public:
+    /**
+     * xml内容结构体
+     */
     MECHANICALARM* m_mechanicalarm;
 
+    /**
+     * 读取xml文件并解析
+     * @param xmlFile
+     */
     void readXml(string xmlFile);
 
 private:
+    /**
+     * 读取xml节点
+     * @param p 父节点[in]
+     * @param node 子节点[out]
+     */
     void setSubNode(ptree* p, sub_node* node);
     void setSubNodeDouble(ptree* p, sub_node_double* node);
 };

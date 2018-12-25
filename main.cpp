@@ -8,8 +8,8 @@ int	main(int argc, char* argv[]) {
 
     //参数变量初始化
     string type;
-    int time = -1;
-    int col = -1; //get查询的列索引0～n
+    int time = -1;//读取共享内存并发送时间间隔
+    int col = -1;
 
     //获取参数
     if (argc > 1) {

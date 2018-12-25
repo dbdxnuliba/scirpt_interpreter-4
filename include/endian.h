@@ -1,5 +1,6 @@
 //
 // Created by 朱熙 on 2018/6/5.
+// 兼容Macos平台网络数据大小端转换
 //
 
 #ifndef __FINK_ENDIANDEV_PKG_ENDIAN_H__

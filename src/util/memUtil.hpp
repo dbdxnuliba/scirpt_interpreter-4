@@ -13,6 +13,13 @@
 
 class memUtil {
 public:
+
+    /**
+     * 内存拷贝，避免空指针
+     * @param des 拷贝地址
+     * @param src 被拷贝地址
+     * @param len 数据长度
+     */
     static void zxMemcpy(char* &des, char* &&src, int len) {
         if(des) {
             delete des;
@@ -26,6 +33,10 @@ public:
 
     }
 
+    /**
+     * 释放内存，避免空指针
+     * @param des 释放内存地址
+     */
     static void zxDelete(char* &des) {
         if (des) {
             delete des;

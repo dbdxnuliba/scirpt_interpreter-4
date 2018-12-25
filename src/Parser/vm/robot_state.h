@@ -698,6 +698,10 @@ struct Kinematics_info
 
 };
 
+
+/**
+ * pack/unpack机器人状态
+ */
 class RobotState
 {
 public:
