@@ -20,6 +20,7 @@ Lexer::Lexer() : m_column(0), scl(keywords::channel = "lexer_class") {
     m_words["teach_mode"] = new Word(tag_TEACH_MODE, "teach_mode");
     m_words["end_teach_mode"] = new Word(tag_END_TEACH_MODE, "end_teach_mode");
     m_words["MoveCamera"] = new Word(tag_MOVECAMERA, "movecomera");
+    m_words["set_digital_out"] = new Word(tag_SET_DIGITAL_OUT, "set_digital_out");
 }
 
 Lexer::~Lexer() {

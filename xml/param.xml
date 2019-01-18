@@ -25,6 +25,11 @@
             <request>pause</request>
             <response>Pausing program</response>
         </pause>
+        <!--  -->
+        <brakeRelease>
+            <request>brake release</request>
+            <response>Brake releasing</response>
+        </brakeRelease>
     </params>
     <command>
         <!--(p为轴坐标AXSI1,AXSI2...)(a为)(v是速度)(t是时间)(r是)-->
@@ -68,7 +73,7 @@
             </p>
             <a mold="double">
                 <min>0</min>
-                <max>6.28</max>
+                <max>0</max>
                 <default>6.28</default>
             </a>
             <v mold="double">

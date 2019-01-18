@@ -77,6 +77,7 @@ private:
     Node* stmt_wait();
     Node* stmt_while();
     Node* stmt_set();
+    Node* stmt_set_digital_out();
 
     Node* stmt_Movej();
     Node* stmt_Movel();

@@ -697,6 +697,25 @@ struct Set_Node : Node {
 
 };
 
+struct Set_Digital_Out_Node : Node {
+    
+    int setDigitalOutIndex;
+    int value;
+
+    Vm * pVm;
+    GLOBAL_PARAMS* pGlobalParams;
+    bool *bStop;
+
+    void eval() override {
+        if (*bStop) return;
+
+        pGlobalParams->dos[setDigitalOutIndex] = value;
+
+        pVm->setDos(IntegerUtil::Binary2Integer(pGlobalParams->dos, 16));
+    }
+
+};
+
 
 
 

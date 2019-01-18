@@ -13,7 +13,8 @@ enum Tag{
     tag_MOVEJ, tag_MOVEL, tag_SPEEDJ, tag_SPEEDL, tag_STOPJ, tag_STOPL, tag_TEACH_MODE, tag_END_TEACH_MODE, tag_MOVECAMERA,
     tag_ID, tag_STRING,
     tag_INT, tag_DOUBLE, tag_SHORT,
-    EQ, NE, GT, LT, GE, LE, tag_UNKNOW
+    EQ, NE, GT, LT, GE, LE, tag_UNKNOW,
+    tag_SET_DIGITAL_OUT
 };
 
 

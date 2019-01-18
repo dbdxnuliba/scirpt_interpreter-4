@@ -338,6 +338,33 @@ Node *Parser::stmt_set() {
     return node;
 }
 
+Node* stmt_set_digital_out() {
+
+    Set_Node* node = new Set_Digital_Out_Node();
+
+    node->pGlobalParams = &m_vm.m_globalParams;
+    node->pVm = &m_vm;
+    node->bStop = &m_vm.m_bStop;
+
+
+    match(tag_SET_DIGITAL_OUT);
+    match('(');
+    if (m_curToken->Tag == tag_INT) {
+        node->setDigitalOutIndex = ((Integer*)m_curToken)->value;
+        match(tag_INT);
+        match(',');
+    }
+
+    if (m_curToken->Tag == tag_STRING) {
+        node->value = ((Word*)m_curToken)->word == "True" || (Word*)m_curToken)->word == "true") ? 1 : 0;
+        match(tag_STRING);
+    }
+
+    match(')');
+
+    return node;
+}
+
 Node *Parser::stmt_Movej() {
 
     Movej_Node* node = new Movej_Node;
