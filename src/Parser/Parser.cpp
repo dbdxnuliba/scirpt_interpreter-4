@@ -78,7 +78,7 @@ Node *Parser::stmt_if() {
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
                     std::vector<std::string> disItem = StringUtil::splitWithFlag(str);
-                    if (disItem.size() > 2);
+                    if (disItem.size() > 2)
                         node->disMap[atoi(disItem[0].c_str())] = atoi(disItem[2].c_str());
                     else
                         return nullptr;         //防止脚本格式錯誤，返回nullptr
@@ -94,7 +94,7 @@ Node *Parser::stmt_if() {
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
                     std::vector<std::string> dosItem = StringUtil::splitWithFlag(str);
-                    if (dosItem.size() > 2);
+                    if (dosItem.size() > 2)
                         node->dosMap[atoi(dosItem[0].c_str())] = atoi(dosItem[2].c_str());
                     else
                         return nullptr;         //防止脚本格式錯誤，返回nullptr
@@ -233,7 +233,7 @@ Node *Parser::stmt_wait() {
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
                     std::vector<std::string> disItem = StringUtil::splitWithFlag(str);
-                    if (disItem.size() > 2);
+                    if (disItem.size() > 2)
                         node->disMap[atoi(disItem[0].c_str())] = atoi(disItem[2].c_str());
                     else
                         return nullptr;         //防止脚本格式錯誤，返回nullptr
@@ -249,7 +249,7 @@ Node *Parser::stmt_wait() {
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
                     std::vector<std::string> dosItem = StringUtil::splitWithFlag(str);
-                    if (dosItem.size() > 2);
+                    if (dosItem.size() > 2)
                         node->dosMap[atoi(dosItem[0].c_str())] = atoi(dosItem[2].c_str());
                     else
                         return nullptr;         //防止脚本格式錯誤，返回nullptr
