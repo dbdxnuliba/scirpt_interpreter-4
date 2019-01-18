@@ -356,7 +356,7 @@ Node *Parser::stmt_set() {
     return node;
 }
 
-Node* *Parser::stmt_set_digital_out() {
+Node *Parser::stmt_set_digital_out() {
 
     Set_Digital_Out_Node* node = new Set_Digital_Out_Node();
 
