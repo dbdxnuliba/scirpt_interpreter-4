@@ -77,7 +77,11 @@ Node *Parser::stmt_if() {
                 match(':');
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
-                    node->dis.push_back(atoi(str.c_str()));
+                    std::vector<std::string> disItem = StringUtil::splitWithFlag(str);
+                    if (disItem.length > 2);
+                        node->disMap[atoi(disItem[0].c_str())] = atoi(disItem[2].c_str());
+                    else
+                        return nullptr;         //防止脚本格式錯誤，返回nullptr
                 }
                 match(tag_STRING);
             }
@@ -89,7 +93,11 @@ Node *Parser::stmt_if() {
                 match(':');
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
-                    node->dos.push_back(atoi(str.c_str()));
+                    std::vector<std::string> dosItem = StringUtil::splitWithFlag(str);
+                    if (dosItem.length > 2);
+                        node->dosMap[atoi(dosItem[0].c_str())] = atoi(dosItem[2].c_str());
+                    else
+                        return nullptr;         //防止脚本格式錯誤，返回nullptr
                 }
                 match(tag_STRING);
             }
@@ -168,6 +176,8 @@ Node *Parser::stmt() {
             return stmt_while();
         case tag_SET:
             return stmt_set();
+        case tag_SET_DIGITAL_OUT:
+            return stmt_set_digital_out();
         case tag_STOP:
             return stmt_Stop();
         case tag_MOVEJ:
@@ -222,7 +232,11 @@ Node *Parser::stmt_wait() {
                 match(':');
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
-                    node->dis.push_back(atoi(str.c_str()));
+                    std::vector<std::string> disItem = StringUtil::splitWithFlag(str);
+                    if (disItem.length > 2);
+                        node->disMap[atoi(disItem[0].c_str())] = atoi(disItem[2].c_str());
+                    else
+                        return nullptr;         //防止脚本格式錯誤，返回nullptr
                 }
                 match(tag_STRING);
             }
@@ -234,7 +248,11 @@ Node *Parser::stmt_wait() {
                 match(':');
                 vector<string> stringList = StringUtil::split(((Word*)m_curToken)->word, ",");
                 for (auto str : stringList) {
-                    node->dos.push_back(atoi(str.c_str()));
+                    std::vector<std::string> dosItem = StringUtil::splitWithFlag(str);
+                    if (dosItem.length > 2);
+                        node->dosMap[atoi(dosItem[0].c_str())] = atoi(dosItem[2].c_str());
+                    else
+                        return nullptr;         //防止脚本格式錯誤，返回nullptr
                 }
                 match(tag_STRING);
             }
@@ -340,7 +358,7 @@ Node *Parser::stmt_set() {
 
 Node* stmt_set_digital_out() {
 
-    Set_Node* node = new Set_Digital_Out_Node();
+    Set_Digital_Out_Node* node = new Set_Digital_Out_Node();
 
     node->pGlobalParams = &m_vm.m_globalParams;
     node->pVm = &m_vm;
@@ -356,7 +374,7 @@ Node* stmt_set_digital_out() {
     }
 
     if (m_curToken->Tag == tag_STRING) {
-        node->value = ((Word*)m_curToken)->word == "True" || (Word*)m_curToken)->word == "true") ? 1 : 0;
+        node->value = ((((Word*)m_curToken)->word == "True") || (((Word*)m_curToken)->word == "true")) ? 1 : 0;
         match(tag_STRING);
     }
 

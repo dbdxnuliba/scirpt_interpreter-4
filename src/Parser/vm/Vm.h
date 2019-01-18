@@ -510,8 +510,8 @@ struct MoveCamera_Node : Node {
 struct Ifelse_Node : Node {
 
     bool ifIoRadio;
-    vector<int> dis;
-    vector<int> dos;
+    map<int, int> disMap;
+    map<int, int> dosMap;
     bool ifParamRadio;
     vector<Arith> ariths;
 
@@ -543,25 +543,25 @@ struct Ifelse_Node : Node {
         if (ifIoRadio) {    //标志位位1，即有任意一项符合即为true
             bool bDis = false, bDos = false;
 
-            for (auto index : dis) {
-                bDis |= pGlobalParams->dis[index];
+            for (auto dis : disMap) {
+                bDis |= (pGlobalParams->dis[dis.first] == dis.second);
                 if (bDis) break;
             }
                 
-            for (auto index : dos) {
-                bDos |= pGlobalParams->dos[index];
+            for (auto dos : dosMap) {
+                bDos |= (pGlobalParams->dos[dos.first] == dos.second);
                 if (bDos) break;
             }
             bIo = bDis|bDos;
-            
+
         } else {            //标志位位0，即dis及dos中项全对应时为true
             bool bDis = true, bDos = true;
 
-            for (auto index : dis)
-                bDis &= pGlobalParams->dis[index];
+            for (auto dis : disMap)
+                bDis &= (pGlobalParams->dis[dis.first] == dis.second);
 
-            for (auto index : dos)
-                bDos &= pGlobalParams->dos[index];
+            for (auto dos : dosMap)
+                bDos &= (pGlobalParams->dos[dos.first] == dos.second);
 
             bIo = bDis&bDos;
         }
@@ -588,8 +588,8 @@ struct Ifelse_Node : Node {
 //wait 节点
 struct Wait_Node : Node {
     bool ifIoRadio;
-    vector<int> dis;
-    vector<int> dos;
+    map<int, int> disMap;
+    map<int, int> dosMap;
     bool ifParamRadio;
     vector<Arith> ariths;
 
@@ -606,13 +606,13 @@ struct Wait_Node : Node {
         if (ifIoRadio) {    //标志位位1，即有任意一项符合即为true
             bool bDis = false, bDos = false;
 
-            for (auto index : dis) {
-                bDis |= pGlobalParams->dis[index];
+            for (auto dis : disMap) {
+                bDis |= (pGlobalParams->dis[dis.first] == dis.second);
                 if (bDis) break;
             }
                 
-            for (auto index : dos) {
-                bDos |= pGlobalParams->dos[index];
+            for (auto dos : dosMap) {
+                bDos |= (pGlobalParams->dos[dos.first] == dos.second);
                 if (bDos) break;
             }
             bIo = bDis|bDos;
@@ -620,11 +620,11 @@ struct Wait_Node : Node {
         } else {            //标志位位0，即dis及dos中项全对应时为true
             bool bDis = true, bDos = true;
 
-            for (auto index : dis)
-                bDis &= pGlobalParams->dis[index];
+            for (auto dis : disMap)
+                bDis &= (pGlobalParams->dis[dis.first] == dis.second);
 
-            for (auto index : dos)
-                bDos &= pGlobalParams->dos[index];
+            for (auto dos : dosMap)
+                bDos &= (pGlobalParams->dos[dos.first] == dos.second);
 
             bIo = bDis&bDos;
         }
