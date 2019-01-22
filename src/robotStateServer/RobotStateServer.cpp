@@ -50,7 +50,7 @@ void robotState_thread(RobotStateServer * pServer) {
             BOOST_LOG_SEV(pRobotStateServer->scl, info) << "current dos" << i << ": " << pParser->m_vm.m_globalParams.dos[i];
 #endif
         // 添加当前脚本id
-        pRobotState->labelMessage_.id = pParser->m_vm.m_curScriptId;
+        pRobotState->labelMessage_.id = pParser->m_vm.m_bStop ? 0 : pParser->m_vm.m_curScriptId;
 
 #ifdef _DEBUG
         pRobotState->robotcommMessage_.warningLevel = test % 10000000;
