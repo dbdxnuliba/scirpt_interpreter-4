@@ -2776,18 +2776,18 @@ unsigned int RobotState::unpackFromMemRobotStateMasterboard(uint8_t *buf, unsign
     memcpy(&mb_data_.masterBoardTemperature, &buf[offset],
            sizeof(mb_data_.masterBoardTemperature));
     offset += sizeof(mb_data_.masterBoardTemperature);
-    mb_data_.masterBoardTemperature = (mb_data_.masterBoardTemperature);
+    //mb_data_.masterBoardTemperature = (mb_data_.masterBoardTemperature);
     memcpy(&mb_data_.robotVoltage48V, &buf[offset],
            sizeof(mb_data_.robotVoltage48V));
     offset += sizeof(mb_data_.robotVoltage48V);
-    mb_data_.robotVoltage48V = (mb_data_.robotVoltage48V);
+    //mb_data_.robotVoltage48V = (mb_data_.robotVoltage48V);
     memcpy(&mb_data_.robotCurrent, &buf[offset], sizeof(mb_data_.robotCurrent));
     offset += sizeof(mb_data_.robotCurrent);
-    mb_data_.robotCurrent = (mb_data_.robotCurrent);
+    //mb_data_.robotCurrent = (mb_data_.robotCurrent);
     memcpy(&mb_data_.masterIOCurrent, &buf[offset],
            sizeof(mb_data_.masterIOCurrent));
     offset += sizeof(mb_data_.masterIOCurrent);
-    mb_data_.masterIOCurrent = (mb_data_.masterIOCurrent);
+    //mb_data_.masterIOCurrent = (mb_data_.masterIOCurrent);
 
     memcpy(&mb_data_.safetyMode, &buf[offset], sizeof(mb_data_.safetyMode));
     offset += sizeof(mb_data_.safetyMode);
@@ -2803,11 +2803,11 @@ unsigned int RobotState::unpackFromMemRobotStateMasterboard(uint8_t *buf, unsign
         memcpy(&mb_data_.euromapInputBits, &buf[offset],
                sizeof(mb_data_.euromapInputBits));
         offset += sizeof(mb_data_.euromapInputBits);
-        mb_data_.euromapInputBits = (mb_data_.euromapInputBits);
+        //mb_data_.euromapInputBits = (mb_data_.euromapInputBits);
         memcpy(&mb_data_.euromapOutputBits, &buf[offset],
                sizeof(mb_data_.euromapOutputBits));
         offset += sizeof(mb_data_.euromapOutputBits);
-        mb_data_.euromapOutputBits = (mb_data_.euromapOutputBits);
+        //mb_data_.euromapOutputBits = (mb_data_.euromapOutputBits);
         if (RobotState::getVersion() < 3.0)
         {
             int16_t euromap_voltage, euromap_current;
@@ -3136,23 +3136,18 @@ unsigned int RobotState::packToMemRobotStateMasterboard(uint8_t *buf, unsigned i
     memcpy(&buf[offset], &mb_data_.analogOutput1, sizeof(mb_data_.analogOutput1));
     offset += sizeof(mb_data_.analogOutput1);
 
-    uint32_t temp32;
-    temp32 = htonl(mb_data_.masterBoardTemperature);
-    memcpy(&buf[offset], &temp32,
-           sizeof(temp32));
-    offset += sizeof(temp32);
-    temp32 = htonl(mb_data_.robotVoltage48V);
-    memcpy(&buf[offset], &temp32,
-           sizeof(temp32));
-    offset += sizeof(temp32);
-    temp32 = htonl(mb_data_.robotCurrent);
-    memcpy(&buf[offset], &temp32,
-           sizeof(temp32));
-    offset += sizeof(temp32);
-    temp32 = htonl(mb_data_.masterIOCurrent);
-    memcpy(&buf[offset], &temp32,
-           sizeof(temp32));
-    offset += sizeof(temp32);
+    memcpy(&buf[offset], &mb_data_.masterBoardTemperature,
+           sizeof(mb_data_.masterBoardTemperature));
+    offset += sizeof(mb_data_.masterBoardTemperature);
+    memcpy(&buf[offset], &mb_data_.robotVoltage48V,
+           sizeof(mb_data_.robotVoltage48V));
+    offset += sizeof(mb_data_.robotVoltage48V);
+    memcpy(&buf[offset], &mb_data_.robotCurrent,
+           sizeof(mb_data_.robotCurrent));
+    offset += sizeof(mb_data_.robotCurrent);
+    memcpy(&buf[offset], &mb_data_.masterIOCurrent,
+           sizeof(mb_data_.masterIOCurrent));
+    offset += sizeof(mb_data_.masterIOCurrent);
 
     memcpy(&buf[offset], &mb_data_.safetyMode, sizeof(mb_data_.safetyMode));
     offset += sizeof(mb_data_.safetyMode);
@@ -3165,19 +3160,19 @@ unsigned int RobotState::packToMemRobotStateMasterboard(uint8_t *buf, unsigned i
     offset += sizeof(mb_data_.euromap67InterfaceInstalled);
     if (mb_data_.euromap67InterfaceInstalled != 0)
     {
-        temp32 = htonl(mb_data_.euromapInputBits);
-        memcpy(&buf[offset], &temp32,
-               sizeof(temp32));
-        offset += sizeof(temp32);
-        temp32 = htonl(mb_data_.euromapOutputBits);
-        memcpy(&buf[offset], &temp32,
-               sizeof(temp32));
-        offset += sizeof(temp32);
+
+        memcpy(&buf[offset], &mb_data_.euromapInputBits,
+               sizeof(mb_data_.euromapInputBits));
+        offset += sizeof(mb_data_.euromapInputBits);
+
+        memcpy(&buf[offset], &mb_data_.euromapOutputBits,
+               sizeof(mb_data_.euromapOutputBits));
+        offset += sizeof(mb_data_.euromapOutputBits);
         if (RobotState::getVersion() < 3.0)
         {
             int16_t euromap_voltage, euromap_current;
-            euromap_voltage = htons(mb_data_.euromapVoltage);
-            euromap_current = htons(mb_data_.euromapCurrent);
+            euromap_voltage = (mb_data_.euromapVoltage);
+            euromap_current = (mb_data_.euromapCurrent);
             memcpy(&buf[offset], &euromap_voltage, sizeof(euromap_voltage));
             offset += sizeof(euromap_voltage);
             memcpy(&buf[offset], &euromap_current, sizeof(euromap_current));
