@@ -29,6 +29,26 @@
 #include <netinet/in.h>
 #include "../../../include/global.h"
 
+#define PackToMem(x, offset)    \
+memcpy(&buf[offset], &x, sizeof(x));\
+offset += sizeof(x);
+
+#define UnpackFromMem(x, offset)    \
+memcpy(&x, &buf[offset],sizeof(x));\
+offset += sizeof(x);
+
+#define Pack(x, offset) \
+memcpy(&buf[offset], &x, sizeof(x));\
+offset += sizeof(x);
+
+#define PackInt32(x, offset)    \
+memcpy(&buf[offset], &htonl(x), sizeof(x));\
+offset += sizeof(x);
+
+#define PackShort(x, offset)    \
+memcpy(&buf[offset], &htons(x), sizeof(x));\
+offset += sizeof(x);
+
 namespace message_types
 {
 enum message_type
