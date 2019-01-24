@@ -3180,9 +3180,9 @@ unsigned int RobotState::packToMemRobotStateMasterboard(uint8_t *buf, unsigned i
         }
         else
         {
-            int32_t euromap_voltage;
-            euromap_voltage = htonl(mb_data_.euromapVoltage);
-            memcpy(&buf[offset], &euromap_voltage,
+            //int32_t euromap_voltage;
+            //euromap_voltage = htonl(mb_data_.euromapVoltage);
+            memcpy(&buf[offset], &mb_data_.euromapVoltage,
                    sizeof(mb_data_.euromapVoltage));
             offset += sizeof(mb_data_.euromapVoltage);
             //euromap_current = htonl(mb_data_.euromapCurrent);
