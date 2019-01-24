@@ -60,6 +60,7 @@ unsigned int RobotState::pack(uint8_t* buf)
 
     buf_length += RobotState::packRobotState(buf, buf_length, packageType::ROBOT_MODE_DATA);
 	buf_length += RobotState::packRobotState(buf, buf_length, packageType::JOINT_DATA);
+	buf_length += RobotState::packRobotState(buf, buf_length, packageType::TOOL_DATA);
 	buf_length += RobotState::packRobotState(buf, buf_length, packageType::CARTESIAN_INFO);
     buf_length += RobotState::packRobotState(buf, buf_length, packageType::MASTERBOARD_DATA);
     buf_length += RobotState::packRobotState(buf, buf_length, packageType::CONFIGURATION_DATA);
@@ -535,7 +536,15 @@ unsigned int RobotState::packRobotState(uint8_t* buf, unsigned int offset,
         val_lock_.unlock();
         break;
 
-        default:
+    case packageType::TOOL_DATA :
+        val_lock_.lock();
+        length += RobotState::packToolData(buf, offset + 5);
+        val_lock_.unlock();
+        break;
+
+
+
+    default:
         break;
     }
     memcpy(&buf[offset] + 4, &package_type, 1);
@@ -863,6 +872,15 @@ unsigned int RobotState::packGlobalVariablesSetupMessage(uint8_t* buf, unsigned 
 
     return (offset - offset_);
 }
+
+unsigned int RobotState::packToolData(uint8_t *buf, unsigned int offset) {
+    unsigned int offset_ = offset;
+
+    Pack(tool_data_, offset, buf);
+
+    return (offset - offset_);
+}
+
 
 unsigned int RobotState::unpackRobotMessageVersion(uint8_t * buf, unsigned int offset,
         uint32_t len)
@@ -2295,6 +2313,7 @@ unsigned int RobotState::unpackFromMem(uint8_t *buf, unsigned int buf_length) {
 
     offset += unpackFromMemRobotMode(buf, offset);
     offset += unpackFromMemJointData(buf, offset);
+    offset += unpackFromMemToolData(buf, offset);
     offset += unpackFromMemCartesianInfo(buf, offset);
     offset += unpackFromMemRobotStateMasterboard(buf, offset);
     offset += unpackFromMemConfigurationData(buf, offset);
@@ -2315,6 +2334,7 @@ unsigned int RobotState::packToMem(uint8_t *buf) {
 
     buf_length += RobotState::packToMemRobotState(buf, buf_length, packageType::ROBOT_MODE_DATA);
     buf_length += RobotState::packToMemRobotState(buf, buf_length, packageType::JOINT_DATA);
+    buf_length += RobotState::packToMemRobotState(buf, buf_length, packageType::TOOL_DATA);
     buf_length += RobotState::packToMemRobotState(buf, buf_length, packageType::CARTESIAN_INFO);
     buf_length += RobotState::packToMemRobotState(buf, buf_length, packageType::MASTERBOARD_DATA);
     buf_length += RobotState::packToMemRobotState(buf, buf_length, packageType::CONFIGURATION_DATA);
@@ -2688,6 +2708,17 @@ unsigned int RobotState::unpackFromMemGlobalVariablesSetupMessage(uint8_t *buf, 
     val_lock_.unlock();
     return offset-offset_;
 }
+
+unsigned int RobotState::unpackFromMemToolData(uint8_t *buf, unsigned int offset) {
+    unsigned int offset_ = offset;
+    val_lock_.lock();
+
+    UnpackFromMem(tool_data_, offset, buf);
+
+    val_lock_.unlock();
+    return offset-offset_;
+}
+
 
 unsigned int RobotState::unpackFromMemLabelMessage(uint8_t *buf, unsigned int offset) {
     unsigned int offset_ = offset;
@@ -3063,6 +3094,12 @@ unsigned int RobotState::packToMemRobotState(uint8_t *buf, unsigned int offset, 
         case packageType::ADDITIONAL_INFO:
             val_lock_.lock();
             length += RobotState::packToMemAdditionalInfo(buf, offset);
+            val_lock_.unlock();
+            break;
+
+        case packageType::TOOL_DATA:
+            val_lock_.lock();
+            length += RobotState::packToMemToolData(buf, offset);
             val_lock_.unlock();
             break;
 
@@ -3660,5 +3697,14 @@ unsigned int RobotState::packToMemGlobalVariablesSetupMessage(uint8_t *buf, unsi
 
     return (offset - offset_);
 }
+
+unsigned int RobotState::packToMemToolData(uint8_t *buf, unsigned int offset) {
+    unsigned int offset_ = offset;
+
+    PackToMem(tool_data_, offset, buf);
+
+    return (offset - offset_);
+}
+
 
 

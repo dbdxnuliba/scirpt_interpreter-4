@@ -29,23 +29,23 @@
 #include <netinet/in.h>
 #include "../../../include/global.h"
 
-#define PackToMem(x, offset)    \
+#define PackToMem(x, offset, buf)    \
 memcpy(&buf[offset], &x, sizeof(x));\
 offset += sizeof(x);
 
-#define UnpackFromMem(x, offset)    \
+#define UnpackFromMem(x, offset, buf)    \
 memcpy(&x, &buf[offset],sizeof(x));\
 offset += sizeof(x);
 
-#define Pack(x, offset) \
+#define Pack(x, offset, buf) \
 memcpy(&buf[offset], &x, sizeof(x));\
 offset += sizeof(x);
 
-#define PackInt32(x, offset)    \
+#define PackInt32(x, offset, buf)    \
 memcpy(&buf[offset], &htonl(x), sizeof(x));\
 offset += sizeof(x);
 
-#define PackShort(x, offset)    \
+#define PackShort(x, offset, buf)    \
 memcpy(&buf[offset], &htons(x), sizeof(x));\
 offset += sizeof(x);
 
@@ -88,7 +88,7 @@ enum robot_message_type
     ROBOT_MESSAGE_ERROR_CODE = 6,
     ROBOT_MESSAGE_KEY = 7,
     ROBOT_MESSAGE_REQUEST_VALUE = 9,
-    ROBOT_MESSAGE_RUNTIME_EXCEPTION = 10,
+    ROBOT_MESSAGE_RUNTIME_EXCEPTION = 10
 
 };
 }
@@ -738,16 +738,16 @@ public:
 	keyMessage keyMessage_;
 	labelMessage labelMessage_;
 	globalVariablesSetupMessage globalVariablesSetupMessage_;
+    tool_data tool_data_;
 
 
 
-	//todo 暂不实现
+    //todo 暂不实现
 	requestValueMessage requestValueMessage_;
 	textMessageStruct textMessage_;
 	runtimeExceptionMessage runtimeExceptionMessage_;
 	varMessage varMessage_;
 	globalVariablesUpdateMessage globalVariablesUpdateMessage_;
-	tool_data tool_data_;
 	force_mode_data force_mode_data_;
 	Calibration_data calibration_data_;
 	Kinematics_info kinematics_info_;
@@ -1036,6 +1036,7 @@ public:
 
     unsigned int packProgramMessage(uint8_t* buf, unsigned int offset, uint8_t package_type);
     unsigned int packGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
+    unsigned int packToolData(uint8_t *buf, unsigned int offset);
 
 
     /** unpack from memory*/
@@ -1060,6 +1061,7 @@ public:
     unsigned int unpackFromMemLabelMessage(uint8_t *buf, unsigned int offset);
 
     unsigned int unpackFromMemGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
+    unsigned int unpackFromMemToolData(uint8_t *buf, unsigned int offset);
 
     /** pack to memory*/
     unsigned int packToMem(uint8_t * buf);
@@ -1080,7 +1082,7 @@ public:
 
     unsigned int packToMemProgramMessage(uint8_t* buf, unsigned int offset, uint8_t packToMemage_type);
     unsigned int packToMemGlobalVariablesSetupMessage(uint8_t *buf, unsigned int offset);
-
+    unsigned int packToMemToolData(uint8_t *buf, unsigned int offset);
     };
 
 #endif /* ROBOT_STATE_H_ */
