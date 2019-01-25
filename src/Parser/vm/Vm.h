@@ -14,6 +14,7 @@
 
 using namespace boost::interprocess;
 
+#define NUMERIC_LIMITS 7
 
 struct COMMAND {
     bool isPowerOn;
@@ -294,6 +295,7 @@ struct Speedj_Node : Node {
 
     string toString() override {
         stringstream ss;
+        ss.precision(NUMERIC_LIMITS);
         ss << "speedj(" << "[" ;
         for (int i=0; i<7; i++) {
             ss << axis[i];

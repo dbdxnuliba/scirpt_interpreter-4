@@ -875,7 +875,7 @@ unsigned int RobotState::packGlobalVariablesSetupMessage(uint8_t* buf, unsigned 
 
 unsigned int RobotState::packToolData(uint8_t *buf, unsigned int offset) {
     unsigned int offset_ = offset;
-    
+
     Pack(tool_data_.analogInputRange2, offset, buf);
     Pack(tool_data_.analogInputRange3, offset, buf);
     Pack(tool_data_.analogInput2, offset, buf);
