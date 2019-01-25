@@ -875,8 +875,16 @@ unsigned int RobotState::packGlobalVariablesSetupMessage(uint8_t* buf, unsigned 
 
 unsigned int RobotState::packToolData(uint8_t *buf, unsigned int offset) {
     unsigned int offset_ = offset;
-
-    Pack(tool_data_, offset, buf);
+    
+    Pack(tool_data_.analogInputRange2, offset, buf);
+    Pack(tool_data_.analogInputRange3, offset, buf);
+    Pack(tool_data_.analogInput2, offset, buf);
+    Pack(tool_data_.analogInput3, offset, buf);
+    Pack(tool_data_.toolVoltage48V, offset, buf);
+    Pack(tool_data_.toolOutputVoltage, offset, buf);
+    Pack(tool_data_.toolCurrent, offset, buf);
+    Pack(tool_data_.toolTemperature, offset, buf);
+    Pack(tool_data_.toolMode, offset, buf);
 
     return (offset - offset_);
 }
@@ -2713,7 +2721,15 @@ unsigned int RobotState::unpackFromMemToolData(uint8_t *buf, unsigned int offset
     unsigned int offset_ = offset;
     val_lock_.lock();
 
-    UnpackFromMem(tool_data_, offset, buf);
+    UnpackFromMem(tool_data_.analogInputRange2, offset, buf);
+    UnpackFromMem(tool_data_.analogInputRange3, offset, buf);
+    UnpackFromMem(tool_data_.analogInput2, offset, buf);
+    UnpackFromMem(tool_data_.analogInput3, offset, buf);
+    UnpackFromMem(tool_data_.toolVoltage48V, offset, buf);
+    UnpackFromMem(tool_data_.toolOutputVoltage, offset, buf);
+    UnpackFromMem(tool_data_.toolCurrent, offset, buf);
+    UnpackFromMem(tool_data_.toolTemperature, offset, buf);
+    UnpackFromMem(tool_data_.toolMode, offset, buf);
 
     val_lock_.unlock();
     return offset-offset_;
@@ -3701,7 +3717,16 @@ unsigned int RobotState::packToMemGlobalVariablesSetupMessage(uint8_t *buf, unsi
 unsigned int RobotState::packToMemToolData(uint8_t *buf, unsigned int offset) {
     unsigned int offset_ = offset;
 
-    PackToMem(tool_data_, offset, buf);
+    PackToMem(tool_data_.analogInputRange2, offset, buf);
+    PackToMem(tool_data_.analogInputRange3, offset, buf);
+    PackToMem(tool_data_.analogInput2, offset, buf);
+    PackToMem(tool_data_.analogInput3, offset, buf);
+    PackToMem(tool_data_.toolVoltage48V, offset, buf);
+    PackToMem(tool_data_.toolOutputVoltage, offset, buf);
+    PackToMem(tool_data_.toolCurrent, offset, buf);
+    PackToMem(tool_data_.toolTemperature, offset, buf);
+    PackToMem(tool_data_.toolMode, offset, buf);
+
 
     return (offset - offset_);
 }
